@@ -7,7 +7,28 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="StartTesting" HorizontalAlignment="Left" Height="36" Margin="179,94,0,0" VerticalAlignment="Top" Width="101" Click="Button_Click"/>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="283*"/>
+            <RowDefinition Height="91*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="87*"/>
+            <ColumnDefinition Width="226*"/>
+            <ColumnDefinition Width="87*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" Content="Optic Chain Management System" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+        <Label Grid.Column="1" Content="User Type" HorizontalAlignment="Left" Margin="52,57,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <ComboBox x:Name="userType" Grid.Column="1" HorizontalAlignment="Left" Margin="172,57,0,0" Grid.Row="1" VerticalAlignment="Top" Width="236" FontSize="20">
+            <ComboBoxItem Content="Select" FontSize="16" IsSelected="True"/>
+            <ComboBoxItem Content="administrator" FontSize="16"/>
+            <ComboBoxItem Content="doctor" FontSize="16"/>
+            <ComboBoxItem Content="sales" FontSize="16"/>
+        </ComboBox>
+        <Label Grid.Column="1" Content="User Name" HorizontalAlignment="Left" Margin="52,116,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.221,0.324" FontSize="20"/>
+        <TextBox x:Name="userName" Grid.Column="1" HorizontalAlignment="Left" Margin="172,120,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" FontSize="20"/>
+        <Label Grid.Column="1" Content="Password" HorizontalAlignment="Left" Margin="52,173,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"/>
+        <Button x:Name="login" Grid.Column="1" Content="Login" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" FontSize="20" Height="37" Width="108" Click="login_Click"/>
+        <PasswordBox x:Name="password" Grid.Column="1" HorizontalAlignment="Left" Margin="172,180,0,0" Grid.Row="1" VerticalAlignment="Top" Width="236" FontSize="20"/>
     </Grid>
 </Window>
