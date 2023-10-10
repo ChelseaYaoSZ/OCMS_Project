@@ -1,0 +1,28 @@
+﻿<Window x:Class="OCMS.Dashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OCMS"
+        mc:Ignorable="d"
+        Title="Dashboard" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="140*"/>
+            <ColumnDefinition Width="11*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="165*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Content="Dashboard" HorizontalAlignment="Left" Height="34" Margin="44,0,0,0" VerticalAlignment="Center" Width="224" FontSize="22" FontWeight="Bold"/>
+        <Button x:Name="client" Grid.Column="1" Content="Client" HorizontalAlignment="Left" Height="42" Margin="84,56,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="client_Click"/>
+        <Button x:Name="staff" Grid.Column="1" Content="Staff" HorizontalAlignment="Left" Height="40" Margin="84,144,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="staff_Click"/>
+        <Button x:Name="appointment" Grid.Column="1" Content="Appointment" HorizontalAlignment="Left" Height="42" Margin="84,237,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="appointment_Click"/>
+        <Button x:Name="order" Grid.Column="1" Content="Order" HorizontalAlignment="Left" Height="42" Margin="336,56,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="order_Click"/>
+        <Button x:Name="inventory" Grid.Column="1" Content="Inventory" HorizontalAlignment="Left" Height="40" Margin="336,144,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="inventory_Click"/>
+
+    </Grid>
+</Window>

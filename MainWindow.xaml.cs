@@ -47,9 +47,10 @@ namespace OCMS
                 // You can navigate to the next page or perform other actions.
                 MessageBox.Show("Login successful!");
 
-                // Create an instance of the MainFunctionWindow
-                MainFunctionPage mainFunctionPage = new MainFunctionPage();
-                mainFunctionPage.Show();
+                // Create an instance of the Dashboard
+                Dashboard dashboard = new Dashboard();
+                dashboard.UpdateDashboardButtons(selectedUserType);
+                dashboard.Show();
                 this.Close();
             }
             else
@@ -58,6 +59,7 @@ namespace OCMS
                 MessageBox.Show("Invalid credentials. Please try again.");
             }
         }
+
     }
 }
 
