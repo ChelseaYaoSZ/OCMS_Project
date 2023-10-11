@@ -72,12 +72,14 @@ namespace OCMS
 
         private void appointment_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Appointment");
+            Appointments appointments = new Appointments();
+            appointments.Show();
         }
 
         private void order_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Order");
+            Orders orders = new Orders();
+            orders.Show();
         }
 
         private void inventory_Click(object sender, RoutedEventArgs e)

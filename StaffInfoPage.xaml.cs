@@ -91,5 +91,11 @@ namespace OCMS
                 con.Dispose();
             }
         }
+
+        private void add_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeDetails employeeDetails = new EmployeeDetails();
+            employeeDetails.Show();
+        }
     }
 }
