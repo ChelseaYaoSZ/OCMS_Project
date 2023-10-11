@@ -1,0 +1,341 @@
+﻿using Npgsql;
+using Npgsql.Replication.PgOutput.Messages;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace OCMS
+{
+    /// <summary>
+    /// Interaction logic for CustomerDetails.xaml
+    /// </summary>
+    public partial class CustomerDetails : Window
+    {
+        // Retrieve the selected date from the Date Picker control and format it
+        DateTime? selectedDate;
+        private NpgsqlConnection con;
+        private NpgsqlCommand cmd;
+
+        private int generatedPersonId;
+        private int generatedAddressId;
+
+        public CustomerDetails()
+        {
+            InitializeComponent();
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            con = dbHelper.GetConnection();
+        }
+
+        private void add_Click(object sender, RoutedEventArgs e)
+        {
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    selectedDate = birthDate.SelectedDate;
+
+                    if (selectedDate.HasValue)
+                    {
+                        // SQL query with parameters
+                        string personQuery = "INSERT INTO optic.person (first_name, last_name, birth_date, email, phone) " +
+                                       " VALUES (@first_name, @last_name, @birth_date, @email, @phone) " +
+                                       " RETURNING person_id";
+
+                        cmd = new NpgsqlCommand(personQuery, con);
+                        cmd.Transaction = transaction;
+
+                        // Add values for the parameters in the query
+                        cmd.Parameters.AddWithValue("@first_name", firstName.Text);
+                        cmd.Parameters.AddWithValue("@last_name", lastName.Text);
+                        cmd.Parameters.AddWithValue("@birth_date", selectedDate);
+                        cmd.Parameters.AddWithValue("@phone", phoneNum.Text);
+                        cmd.Parameters.AddWithValue("@email", email.Text);
+
+                        // Execute the query and retrieve the generated person_id
+                        generatedPersonId = (int)cmd.ExecuteScalar();
+
+                        //Insert data into the address table 
+                        string addressQuery = "INSERT INTO optic.address (address, city, postal_code) " +
+                                              " VALUES (@address, @city, @postal_code) " +
+                                              " RETURNING address_id";
+
+                        cmd = new NpgsqlCommand(addressQuery, con);
+                        cmd.Transaction = transaction;
+
+                        //Add values for the parameters in the
+                        cmd.Parameters.AddWithValue("@address", address.Text);
+                        cmd.Parameters.AddWithValue("@city", city.Text);
+                        cmd.Parameters.AddWithValue("@postal_code", postalCode.Text);
+
+                        // Execute the query and retrieve the generated person_id
+                        generatedAddressId = (int)cmd.ExecuteScalar();
+
+                        // Commit the transaction if everything succeeds
+                        transaction.Commit();
+
+                        // Set the generated person_id to the personID TextBox
+                        personID.Text = generatedPersonId.ToString();
+                        addressID.Text = generatedAddressId.ToString();
+                        MessageBox.Show("Customer and Address were added successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a valid date of birth.");
+                    }
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occured: {ex.Message}");
+                }
+            }
+        }
+
+        private bool updateFirstName = false;
+        private bool updateLastName = false;
+        private bool updateEmail = false;
+        private bool updatePhone = false;
+        private bool updateBirthDate = false;
+        private bool updateAddress = false;
+        private bool updateCity = false;
+        private bool updatePostalCode = false;
+
+        private void CheckForUpdates()
+        {
+            if (!string.IsNullOrWhiteSpace(firstName.Text))
+            {
+                updateFirstName = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(lastName.Text))
+            {
+                updateLastName = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(email.Text))
+            {
+                updateEmail = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(phoneNum.Text))
+            {
+                updatePhone = true;
+            }
+
+            if (birthDate.SelectedDate != null)
+            {
+                updateBirthDate = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(address.Text))
+            {
+                updateAddress = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(city.Text))
+            {
+                updateCity = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(postalCode.Text))
+            {
+                updatePostalCode = true;
+            }
+        }
+
+        private void updatePerson(int personId, bool updateFirstName, bool updateLastName, bool updateEmail, bool updatePhone, bool updateBirthDate)
+        {
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    selectedDate = birthDate.SelectedDate;
+
+                    string personQuery = "UPDATE optic.person SET ";
+
+                    if (updateFirstName)
+                    {
+                        personQuery += "first_name = @first_name, ";
+                    }
+
+                    if (updateLastName)
+                    {
+                        personQuery += "last_name = @last_name, ";
+                    }
+
+                    if (updateEmail)
+                    {
+                        personQuery += "email = @email, ";
+                    }
+
+                    if (updatePhone)
+                    {
+                        personQuery += "phone = @phone, ";
+                    }
+
+                    if (updateBirthDate)
+                    {
+                        personQuery += "birth_date = @birth_date, ";
+                    }
+
+                    // Remove the trailing comma and space
+                    personQuery = personQuery.TrimEnd(',', ' ');
+
+                    personQuery += " WHERE person_id = @person_id";
+
+                    cmd = new NpgsqlCommand(personQuery, con);
+                    cmd.Transaction = transaction;
+
+                    if (updateFirstName)
+                    {
+                        cmd.Parameters.AddWithValue("@first_name", firstName.Text);
+                    }
+
+                    if (updateLastName)
+                    {
+                        cmd.Parameters.AddWithValue("@last_name", lastName.Text);
+                    }
+
+                    if (updateEmail)
+                    {
+                        cmd.Parameters.AddWithValue("@email", email.Text);
+                    }
+
+                    if (updatePhone)
+                    {
+                        cmd.Parameters.AddWithValue("@phone", phoneNum.Text);
+                    }
+
+                    if (updateBirthDate)
+                    {
+                        cmd.Parameters.AddWithValue("@birth_date", selectedDate);
+                    }
+
+                    cmd.Parameters.AddWithValue("@person_id", personId);
+
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Customer information has been updated successfully.");
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating customer information: {ex.Message}");
+                }
+            }
+        }
+
+        private void updateCustAddress(int addressId, bool updateAddress, bool updateCity, bool updatePostalCode)
+        {
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    string addressQuery = "UPDATE optic.address SET ";
+
+                    if (updateAddress)
+                    {
+                        addressQuery += "address = @address, ";
+                    }
+
+                    if (updateCity)
+                    {
+                        addressQuery += "city = @city, ";
+                    }
+
+                    if (updatePostalCode)
+                    {
+                        addressQuery += "postal_code = @postal_code, ";
+                    }
+
+                    // Remove the trailing comma and space
+                    addressQuery = addressQuery.TrimEnd(',', ' ');
+
+                    addressQuery += " WHERE address_id = @address_id";
+
+                    cmd = new NpgsqlCommand(addressQuery, con);
+                    cmd.Transaction = transaction;
+
+                    if (updateAddress)
+                    {
+                        cmd.Parameters.AddWithValue("@address", address.Text);
+                    }
+
+                    if (updateCity)
+                    {
+                        cmd.Parameters.AddWithValue("@city", city.Text);
+                    }
+
+                    if (updatePostalCode)
+                    {
+                        cmd.Parameters.AddWithValue("@postal_code", postalCode.Text);
+                    }
+
+                    cmd.Parameters.AddWithValue("@address_id", addressId);
+
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Address information has been updated successfully.");
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating address information: {ex.Message}");
+                }
+            }
+        }
+
+        private void update_Click(object sender, RoutedEventArgs e)
+        {
+            CheckForUpdates();
+
+            if (generatedPersonId != 0 && generatedAddressId != 0)
+            {
+                updatePerson(generatedPersonId, updateFirstName, updateLastName, updateEmail, updatePhone, updateBirthDate);
+                updateCustAddress(generatedAddressId, updateAddress, updateCity, updatePostalCode);
+            }
+            else
+            {
+                MessageBox.Show("No valid IDs found for updating.");
+            }
+        }
+
+        private void appointment_Click(object sender, RoutedEventArgs e)
+        {
+            Appointments appointments = new Appointments();
+            appointments.Show();
+        }
+
+        private void prescription_Click(object sender, RoutedEventArgs e)
+        {
+            Prescription prescription = new Prescription();
+            prescription.Show();
+        }
+
+        private void purch_hist_Click(object sender, RoutedEventArgs e)
+        {
+            Orders orders = new Orders();
+            orders.Show();
+        }
+
+        private void cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+    }
+}

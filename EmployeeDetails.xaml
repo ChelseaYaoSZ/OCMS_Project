@@ -1,0 +1,69 @@
+﻿<Window x:Class="OCMS.EmployeeDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OCMS"
+        mc:Ignorable="d"
+        Title="EmployeeDetails" Height="750" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="56*"/>
+            <RowDefinition Height="346*"/>
+            <RowDefinition Height="251*"/>
+            <RowDefinition Height="81*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="424*"/>
+            <ColumnDefinition Width="312*"/>
+            <ColumnDefinition Width="31*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.Column="1" Margin="0,52,0,3" Grid.RowSpan="2">
+            <Label Content="First Name" Canvas.Left="42" Canvas.Top="115" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Last Name" Canvas.Left="41" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="DOB" Canvas.Left="41" Canvas.Top="210" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Phone Number" Canvas.Left="41" Canvas.Top="260" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Email" Canvas.Left="42" Canvas.Top="304" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="firstName" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="123" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="lastName" Canvas.Left="211" TextWrapping="Wrap" Canvas.Top="167" Width="159" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="phoneNum" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="264" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="email" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="312" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Label Content="Person ID" Canvas.Left="42" Canvas.Top="74"/>
+            <TextBox x:Name="p_ID" Canvas.Left="211" TextWrapping="Wrap" Canvas.Top="78" Width="159" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <DatePicker x:Name="birthDate" Canvas.Left="211" Canvas.Top="216" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159"/>
+        </Canvas>
+        <Label Grid.Column="1" Content="Employee Registration" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Height="58" Width="390"/>
+        <Button x:Name="add" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="49,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="add_Click" Height="35"/>
+        <Button x:Name="update" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="update_Click" Margin="307,0,0,0" Height="35"/>
+        <Button x:Name="cancel" Grid.Column="2" Content="Cancel" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="cancel_Click" Height="35" Margin="156,0,0,0"/>
+        <Canvas Grid.Column="2" Margin="0,52,0,0" Grid.RowSpan="2">
+            <Label Content="Employee ID" Canvas.Left="15" Canvas.Top="66" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="User Name" Canvas.Left="15" Canvas.Top="117" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Password" Canvas.Left="15" Canvas.Top="165" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="User Type (adminstrator, sales, doctor)" Canvas.Left="15" Canvas.Top="207" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox x:Name="employeeID" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="66" Width="120" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="username" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="117" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="password" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="165" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Active " Canvas.Left="15" Canvas.Top="296" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Manager ID (1 or 2)" Canvas.Left="15" Canvas.Top="257" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Employee Profile" Canvas.Left="10" Canvas.Top="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="userType" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="233" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="managerID" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="265" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <CheckBox x:Name="activeTrue" Content="True" Canvas.Left="182" Canvas.Top="301"/>
+            <CheckBox x:Name="activeFalse" Content="False" Canvas.Left="182" Canvas.Top="322"/>
+        </Canvas>
+        <Label Grid.Column="1" Content="Personal Information" HorizontalAlignment="Left" Margin="17,10,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Height="42" Width="249"/>
+        <Canvas Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,346,0,0" Grid.RowSpan="2">
+            <Label Content="Address Details" Canvas.Left="17" Canvas.Top="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Content="Address ID" Canvas.Left="83" Canvas.Top="57" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label Content="Address" Canvas.Left="84" Canvas.Top="110"/>
+            <Label Content="City" Canvas.Left="84" Canvas.Top="159"/>
+            <Label Content="Postal Code" Canvas.Left="83" Canvas.Top="206"/>
+            <TextBox x:Name="addressID" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="57" Width="348" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" IsEnabled="False"/>
+            <TextBox x:Name="address" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="107" Width="348" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+            <TextBox x:Name="city" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="159" Width="348" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="postalCode" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="207" Width="348" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        </Canvas>
+    </Grid>
+</Window>
