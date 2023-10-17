@@ -2,6 +2,7 @@
 using Npgsql.Replication.PgOutput.Messages;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,28 @@ namespace OCMS
             InitializeComponent();
             DatabaseHelper dbHelper = new DatabaseHelper();
             con = dbHelper.GetConnection();
+        }
+
+        public CustomerDetails(DataRow selectedRow)
+        {
+            InitializeComponent();
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            con = dbHelper.GetConnection();
+            FillCustomerDetails(selectedRow);
+        }
+
+        private void FillCustomerDetails(DataRow row)
+        {
+            personID.Text = $"{row["person_id"]}";
+            firstName.Text = $"{row["first_name"]}";
+            lastName.Text = $"{row["last_name"]}";
+            birthDate.Text = $"{row["birth_date"]}";
+            phoneNum.Text = $"{row["phone"]}";
+            email.Text = $"{row["email"]}";
+            addressID.Text = $"{row["address_id"]}";
+            address.Text = $"{row["address"]}";
+            city.Text = $"{row["city"]}";
+            postalCode.Text = $"{row["postal_code"]}";
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -303,14 +326,59 @@ namespace OCMS
         {
             CheckForUpdates();
 
-            if (generatedPersonId != 0 && generatedAddressId != 0)
+            if (!string.IsNullOrEmpty(personID.Text) && !string.IsNullOrEmpty(addressID.Text))
             {
                 updatePerson(generatedPersonId, updateFirstName, updateLastName, updateEmail, updatePhone, updateBirthDate);
                 updateCustAddress(generatedAddressId, updateAddress, updateCity, updatePostalCode);
             }
+            else if (!string.IsNullOrEmpty(personID.Text) && string.IsNullOrEmpty(addressID.Text))
+            {
+                updatePerson(generatedPersonId, updateFirstName, updateLastName, updateEmail, updatePhone, updateBirthDate);
+                AddCustAddressAndCustomerMapping(int.Parse(personID.Text));
+            }
             else
             {
                 MessageBox.Show("No valid IDs found for updating.");
+            }
+        }
+
+        private void AddCustAddressAndCustomerMapping(int personId)
+        {
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    string addressQuery = "INSERT INTO optic.address (address, city, postal_code) VALUES (@address, @city, @postal_code) RETURNING address_id";
+
+                    cmd = new NpgsqlCommand(addressQuery, con);
+                    cmd.Transaction = transaction;
+
+                    cmd.Parameters.AddWithValue("@address", address.Text);
+                    cmd.Parameters.AddWithValue("@city", city.Text);
+                    cmd.Parameters.AddWithValue("@postal_code", postalCode.Text);
+
+                    int generatedAddressId = (int)cmd.ExecuteScalar();
+                    addressID.Text = generatedAddressId.ToString();
+
+                    string customerQuery = "INSERT INTO optic.customer (address_id, person_id) VALUES (@address_id, @person_id) RETURNING customer_id";
+                    cmd = new NpgsqlCommand(customerQuery, con);
+                    cmd.Transaction = transaction;
+
+                    cmd.Parameters.AddWithValue("@address_id", generatedAddressId);
+                    cmd.Parameters.AddWithValue("@person_id", personId); // Assuming you pass personId as a parameter
+
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+
+                    MessageBox.Show($"New address and customer mapping has been added successfully with Address ID: {generatedAddressId}.");
+
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while adding a new address: {ex.Message}");
+                }
             }
         }
 

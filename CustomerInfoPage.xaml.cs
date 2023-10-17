@@ -34,7 +34,8 @@ namespace OCMS
 
         public DataTable GetAllCustomers()
         {
-            string query = @"SELECT p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address 
+            string query = @"SELECT a.address, a.city, a.postal_code, p.person_id, a.address_id,
+                                p.first_name, p.last_name, p.birth_date, p.phone, p.email
                                 FROM optic.customer c
                                 LEFT JOIN optic.person p on p.person_id = c.person_id
                                 LEFT JOIN optic.address a on a.address_id = c.address_id";
@@ -97,5 +98,17 @@ namespace OCMS
             CustomerDetails customerDetails = new CustomerDetails();
             customerDetails.Show();
         }
+
+        private void DataGridCustomers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var grid = (DataGrid)sender;
+            var selectedCustomer = (DataRowView)grid.SelectedItem;
+            if (selectedCustomer != null)
+            {
+                var customerDetails = new CustomerDetails(selectedCustomer.Row);
+                customerDetails.Show();
+            }
+        }
+
     }
 }
