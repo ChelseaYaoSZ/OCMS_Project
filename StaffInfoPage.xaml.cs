@@ -34,10 +34,11 @@ namespace OCMS
 
         public DataTable GetAllStaffs()
         {
-            string query = @"SELECT DISTINCT p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address ,s.user_type, s.active
-                            FROM optic.staff s
-                            LEFT JOIN optic.person p on p.person_id = s.person_id
-                            LEFT JOIN optic.address a on a.address_id = s.address_id";
+            string query = @"SELECT a.address, a.city, a.postal_code, p.person_id, a.address_id,s.staff_id,
+                                p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address ,s.username, s.password, s.user_type, s.active
+                                FROM optic.staff s
+                                LEFT JOIN optic.person p on p.person_id = s.person_id
+                                LEFT JOIN optic.address a on a.address_id = s.address_id";
 
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(query, con);
 
@@ -50,11 +51,11 @@ namespace OCMS
 
         public void LoadAllStaffs()
         {
-            DataTable customers = GetAllStaffs();
-            dataGridStuffs.ItemsSource = customers.DefaultView;
+            DataTable staffs = GetAllStaffs();
+            dataGridStaffs.ItemsSource = staffs.DefaultView;
         }
 
-        public DataTable SearchCustomers(string searchTerm)
+        public DataTable SearchStaffs(string searchTerm)
         {
             string query = @"SELECT p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address ,s.user_type, s.active
                             FROM optic.staff s
@@ -74,8 +75,8 @@ namespace OCMS
         public void LoadSpecificStaff()
         {
             string searchTerm = searchInfo.Text;
-            DataTable specificCustomer = SearchCustomers(searchTerm);
-            dataGridStuffs.ItemsSource = specificCustomer.DefaultView;
+            DataTable specificStaff = SearchStaffs(searchTerm);
+            dataGridStaffs.ItemsSource = specificStaff.DefaultView;
         }
 
         private void search_Click(object sender, RoutedEventArgs e)
@@ -96,6 +97,17 @@ namespace OCMS
         {
             EmployeeDetails employeeDetails = new EmployeeDetails();
             employeeDetails.Show();
+        }
+
+        private void DataGridStaffs_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var grid = (DataGrid)sender;
+            var selectedStaff = (DataRowView)grid.SelectedItem;
+            if (selectedStaff != null)
+            {
+                var staffDetails = new EmployeeDetails(selectedStaff.Row);
+                staffDetails.Show();
+            }
         }
     }
 }
