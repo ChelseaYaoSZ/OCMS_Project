@@ -25,7 +25,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding first_name}"/>
                 <DataGridTextColumn Header="Last Name" Binding="{Binding last_name}"/>
-                <DataGridTextColumn Header="DOB" Binding="{Binding birth_date}"/>
+                <DataGridTextColumn Header="DOB" Binding="{Binding birth_date, StringFormat=d}"/>
                 <DataGridTextColumn Header="Phone Number" Binding="{Binding phone}"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
                 <!-- Add other desired columns similarly -->
