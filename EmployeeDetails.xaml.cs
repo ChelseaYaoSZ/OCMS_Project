@@ -2,6 +2,7 @@
 using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,32 @@ namespace OCMS
             InitializeComponent();
             DatabaseHelper dbHelper = new DatabaseHelper();
             con = dbHelper.GetConnection();
+        }
+
+        public EmployeeDetails(DataRow selectedRow)
+        {
+            InitializeComponent();
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            con = dbHelper.GetConnection();
+            FillEmployeeDetails(selectedRow);
+        }
+
+        private void FillEmployeeDetails(DataRow row)
+        {
+            p_ID.Text = $"{row["person_id"]}";
+            firstName.Text = $"{row["first_name"]}";
+            lastName.Text = $"{row["last_name"]}";
+            birthDate.Text = $"{row["birth_date"]}";
+            phoneNum.Text = $"{row["phone"]}";
+            email.Text = $"{row["email"]}";
+            addressID.Text = $"{row["address_id"]}";
+            address.Text = $"{row["address"]}";
+            city.Text = $"{row["city"]}";
+            postalCode.Text = $"{row["postal_code"]}";
+            employeeID.Text = $"{row["staff_id"]}";
+            username.Text = $"{row["username"]}";
+            password.Text = $"{row["password"]}";
+            userType.Text = $"{row["user_type"]}";
         }
 
         private bool updateFirstName = false;
