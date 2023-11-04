@@ -7,6 +7,35 @@
         mc:Ignorable="d"
         Title="Appointments" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="548*"/>
+            <ColumnDefinition Width="108*"/>
+            <ColumnDefinition Width="85*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36*"/>
+            <RowDefinition Height="47*"/>
+            <RowDefinition Height="283*"/>
+            <RowDefinition Height="68*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="doctor" Grid.Column="1" HorizontalAlignment="Left" Height="29" Margin="159,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="90" SelectionOpacity="0.1" FontStyle="Italic"/>
+        <Button x:Name="search" Grid.Column="1" Content="Search" HorizontalAlignment="Left" Height="29" Margin="274,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="72" Click="search_Click"/>
+        <DataGrid x:Name="dataGridAppointments" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=6}" Margin="0,2,10,0" MouseDoubleClick="DataGridAppointments_MouseDoubleClick" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Appointment ID" Binding="{Binding appointmentid}" />
+                <DataGridTextColumn Header="First Name" Binding="{Binding customerfirstname}" />
+                <DataGridTextColumn Header="Last Name" Binding="{Binding customerlastname}" />
+                <DataGridTextColumn Header="Date" Binding="{Binding appointmentdate, StringFormat=d}" />
+                <DataGridTextColumn Header="Time" Binding="{Binding appointmenttime}" />
+                <DataGridTextColumn Header="Doctor" Binding="{Binding doctorfirstname}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Grid.Column="1" Content="Appointment" HorizontalAlignment="Left" Height="36" Margin="10,0,0,0" VerticalAlignment="Center" Width="239" FontWeight="Bold" FontSize="22"/>
+        <Button x:Name="add" Grid.Column="2" Content="Add"  HorizontalAlignment="Left" Width="79" Margin="0,36,0,9" Grid.RowSpan="2" Click="add_Click"/>
+
+        <DatePicker x:Name="date" Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="109"/>
+
     </Grid>
 </Window>

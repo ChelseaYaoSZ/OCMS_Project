@@ -384,7 +384,8 @@ namespace OCMS
 
         private void appointment_Click(object sender, RoutedEventArgs e)
         {
-            Appointments appointments = new Appointments();
+            string customerId = personID.Text;
+            Appointments appointments = new Appointments(customerId);
             appointments.Show();
         }
 
