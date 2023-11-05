@@ -115,6 +115,15 @@
     <Compile Include="EmployeeDetails.xaml.cs">
       <DependentUpon>EmployeeDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Inventory.xaml.cs">
+      <DependentUpon>Inventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryDetails.xaml.cs">
+      <DependentUpon>InventoryDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.xaml.cs">
+      <DependentUpon>Invoice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
@@ -145,6 +154,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EmployeeDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Inventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Invoice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
