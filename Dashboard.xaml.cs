@@ -84,7 +84,8 @@ namespace OCMS
 
         private void inventory_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Inventory");
+            Inventory inventory = new Inventory();
+            inventory.Show();
         }
     }
 }

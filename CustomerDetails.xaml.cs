@@ -397,7 +397,8 @@ namespace OCMS
 
         private void purch_hist_Click(object sender, RoutedEventArgs e)
         {
-            Orders orders = new Orders();
+            string customerId = personID.Text;
+            Orders orders = new Orders(customerId);
             orders.Show();
         }
 
