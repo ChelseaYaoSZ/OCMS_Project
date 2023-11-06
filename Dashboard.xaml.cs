@@ -87,5 +87,11 @@ namespace OCMS
             Inventory inventory = new Inventory();
             inventory.Show();
         }
+
+        private void api_Click(object sender, RoutedEventArgs e)
+        {
+            InventoryWithRestAPI api = new InventoryWithRestAPI();
+            api.Show();
+        }
     }
 }
