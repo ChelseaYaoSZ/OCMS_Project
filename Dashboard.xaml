@@ -23,6 +23,7 @@
         <Button x:Name="appointment" Grid.Column="1" Content="Appointment" HorizontalAlignment="Left" Height="42" Margin="84,237,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="appointment_Click"/>
         <Button x:Name="order" Grid.Column="1" Content="Order" HorizontalAlignment="Left" Height="42" Margin="336,56,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="order_Click"/>
         <Button x:Name="inventory" Grid.Column="1" Content="Inventory" HorizontalAlignment="Left" Height="40" Margin="336,144,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="inventory_Click"/>
+        <Button x:Name="api" Grid.Column="1" Content="RestAPI Test" HorizontalAlignment="Left" Height="42" Margin="336,237,0,0" Grid.Row="1" VerticalAlignment="Top" Width="112" Click="api_Click"/>
 
     </Grid>
 </Window>
