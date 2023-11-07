@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OCMS"
         mc:Ignorable="d"
-        Title="Orders" Height="450" Width="800">
+        Title="Orders" Height="550" Width="900">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/Images/background.jpg"/>
+    </Window.Background>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="59*"/>
@@ -19,22 +23,22 @@
             <RowDefinition Height="283*"/>
             <RowDefinition Height="68*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="name" Grid.Column="1" HorizontalAlignment="Left" Height="29" Margin="159,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="90" SelectionOpacity="0.1" FontStyle="Italic"/>
-        <Button x:Name="search" Grid.Column="1" Content="Search" HorizontalAlignment="Left" Height="29" Margin="274,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="72" Click="search_Click"/>
+        <TextBox x:Name="name" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Height="29" Margin="159,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="145" SelectionOpacity="0.1" FontStyle="Italic"/>
+        <Button x:Name="search" Grid.Column="1" Content="Search" Style="{StaticResource SearchButtonStyle}" HorizontalAlignment="Left" Height="29" Margin="331,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="72" Click="search_Click"/>
         <DataGrid x:Name="dataGridOrders" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=6}" Margin="0,2,10,0" MouseDoubleClick="DataGridOrders_MouseDoubleClick" AutoGenerateColumns="False">
-            <DataGrid.Columns> 
+            <DataGrid.Columns>
                 <DataGridTextColumn Header="Order ID" Binding="{Binding order_id}" />
                 <DataGridTextColumn Header="Order Date" Binding="{Binding order_date, StringFormat=d}" />
                 <DataGridTextColumn Header="Customer's Name" Binding="{Binding first_name}" />
                 <DataGridTextColumn Header="Last Name" Binding="{Binding last_name}" />
                 <DataGridTextColumn Header="Order Status" Binding="{Binding order_status}" />
                 <DataGridTextColumn Header="Total Amount" Binding="{Binding total_amount}" />
-                
+
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Grid.Column="1" Content="Order" HorizontalAlignment="Left" Height="36" Margin="10,0,0,0" VerticalAlignment="Center" Width="239" FontWeight="Bold" FontSize="22"/>
-        <Button x:Name="add" Grid.Column="2" Content="Add"  HorizontalAlignment="Left" Width="79" Margin="0,36,0,9" Grid.RowSpan="2" Click="add_Click"/>
+        <Label Grid.Column="1" Content="Order" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="239" FontWeight="Bold" FontSize="24" FontFamily="Broadway" Foreground="#FF854622" Grid.RowSpan="2"/>
+        <Button x:Name="add" Grid.Column="2" Content="New"  HorizontalAlignment="Center" Width="102" Margin="0,5,0,5" Style="{StaticResource RoundedButtonStyle}" Click="add_Click" Grid.Row="1" FontSize="18"/>
 
         <DatePicker x:Name="date" Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="109"/>
 
