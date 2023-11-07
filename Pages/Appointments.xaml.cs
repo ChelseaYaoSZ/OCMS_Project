@@ -56,7 +56,7 @@ namespace OCMS
                             JOIN optic.person cust ON cu.person_id = cust.person_id
                             JOIN optic.doctor d ON a.doctor_id = d.doctor_id
                             JOIN optic.staff s ON d.staff_id = s.staff_id
-                            JOIN optic.person doc ON s.person_id = doc.person_id";        
+                            JOIN optic.person doc ON s.person_id = doc.person_id";
 
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(query, con);
 
@@ -175,7 +175,8 @@ namespace OCMS
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            AppointmentDetails appointmentDetails = new AppointmentDetails();
+            string customerId = _customerId;
+            AppointmentDetails appointmentDetails = new AppointmentDetails(customerId);
             appointmentDetails.Show();
         }
 

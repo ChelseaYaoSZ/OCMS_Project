@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OCMS"
         mc:Ignorable="d"
-        Title="CustomerDetails" Height="700" Width="800">
+        Title="CustomerDetails" Height="850" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="52*"/>
-            <RowDefinition Height="296*"/>
-            <RowDefinition Height="255*"/>
-            <RowDefinition Height="81*"/>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="289*"/>
+            <RowDefinition Height="289*"/>
+            <RowDefinition Height="146*"/>
+            <RowDefinition Height="76*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80*"/>
@@ -35,15 +36,14 @@
             <Label Content="Personal Information" Canvas.Left="38" Canvas.Top="10" FontSize="20" FontWeight="Bold"/>
         </Canvas>
         <Label Grid.Column="1" Content="Customer Registration" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Height="52" Width="388"/>
-        <Button x:Name="add" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="61,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="add_Click" Height="35"/>
-        <Button x:Name="update" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="update_Click" Margin="254,0,0,0" Height="35"/>
-        <Button x:Name="cancel" Grid.Column="2" Content="Cancel" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="cancel_Click" Height="35"/>
-        <StackPanel Grid.Column="2" Margin="0,53,0,204" Grid.Row="1" Grid.RowSpan="2">
+        <Button x:Name="add" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="61,0,0,0" Grid.Row="4" VerticalAlignment="Center" FontSize="20" Width="100px" Click="add_Click" Height="35"/>
+        <Button x:Name="update" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" FontSize="20" Width="100px" Click="update_Click" Margin="274,0,0,0" Height="35"/>
+        <Button x:Name="cancel" Grid.Column="2" Content="Cancel" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" FontSize="20" Width="100px" Click="cancel_Click" Height="35"/>
+        <StackPanel Grid.Column="2" Margin="0,53,0,2" Grid.Row="1" Grid.RowSpan="2">
             <Button x:Name="appointment" Content="Appointment" FontSize="20" Click="appointment_Click" Height="50px"/>
-            <Button x:Name="prescription" Content="Prescription" FontSize="20" Click="prescription_Click" Height="50px"/>
             <Button x:Name="purch_hist" Content="Purchase History" FontSize="20" Click="purch_hist_Click" Height="50px"/>
         </StackPanel>
-        <Canvas Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,296,0,0" Grid.RowSpan="2">
+        <Canvas Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0" Grid.RowSpan="2">
             <Label Content="Address Details" Canvas.Left="32" Canvas.Top="10" FontSize="20" FontWeight="Bold"/>
             <Label Content="Address ID" Canvas.Left="32" Canvas.Top="64" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Address" Canvas.Left="32" Canvas.Top="117" HorizontalAlignment="Left" VerticalAlignment="Center"/>
@@ -53,6 +53,11 @@
             <TextBox x:Name="address" Canvas.Left="200" TextWrapping="Wrap" Canvas.Top="117" Width="330" Height="25px" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox x:Name="city" Canvas.Left="200" TextWrapping="Wrap" Canvas.Top="169" Width="330"  Height="25px" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <TextBox x:Name="postalCode" Canvas.Left="200" TextWrapping="Wrap" Canvas.Top="212" Width="330" Height="25px" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Customer Details" Canvas.Left="32" Canvas.Top="286" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label Content="Customer ID" Canvas.Left="33" Canvas.Top="328" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="custID" Canvas.Left="200" TextWrapping="Wrap" Canvas.Top="328" Width="330" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" IsEnabled="False"/>
+            <Label Content="Prescription" Canvas.Left="32" Canvas.Top="372" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="prescription" Canvas.Left="200" TextWrapping="Wrap" Canvas.Top="372" Width="330"  Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </Canvas>
 
     </Grid>

@@ -41,6 +41,7 @@ namespace OCMS
             LoadSpecificOrder();
         }
 
+
         public DataTable GetAllOrders()
         {
             string query = @"SELECT o.order_id, o.order_date, o.order_status, o.order_quantity, o.total_amount,

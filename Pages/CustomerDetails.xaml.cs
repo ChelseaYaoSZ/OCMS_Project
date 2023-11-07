@@ -29,6 +29,7 @@ namespace OCMS
 
         private int generatedPersonId;
         private int generatedAddressId;
+        private int generatedCustomerId;
 
         public CustomerDetails()
         {
@@ -57,6 +58,8 @@ namespace OCMS
             address.Text = $"{row["address"]}";
             city.Text = $"{row["city"]}";
             postalCode.Text = $"{row["postal_code"]}";
+            custID.Text = $"{row["customer_id"]}";
+            prescription.Text = $"{row["prescription"]}";
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -103,12 +106,29 @@ namespace OCMS
                         // Execute the query and retrieve the generated person_id
                         generatedAddressId = (int)cmd.ExecuteScalar();
 
+                        // SQL query with parameters for customer
+                        string customerQuery = "INSERT INTO optic.customer (person_id, address_id, prescription) " +
+                                               "VALUES (@person_id, @address_id, @prescription) " +
+                                               "RETURNING customer_id";
+
+                        cmd = new NpgsqlCommand(customerQuery, con);
+                        cmd.Transaction = transaction;
+
+                        // Add values for the parameters in the query
+                        cmd.Parameters.AddWithValue("@person_id", generatedPersonId);
+                        cmd.Parameters.AddWithValue("@address_id", generatedAddressId);
+                        cmd.Parameters.AddWithValue("@prescription", prescription.Text);
+
+                        // Execute the query and retrieve the generated customer_id
+                        generatedCustomerId = (int)cmd.ExecuteScalar();
+
                         // Commit the transaction if everything succeeds
                         transaction.Commit();
 
                         // Set the generated person_id to the personID TextBox
                         personID.Text = generatedPersonId.ToString();
                         addressID.Text = generatedAddressId.ToString();
+                        custID.Text = generatedCustomerId.ToString();
                         MessageBox.Show("Customer and Address were added successfully!");
                     }
                     else
@@ -132,6 +152,7 @@ namespace OCMS
         private bool updateAddress = false;
         private bool updateCity = false;
         private bool updatePostalCode = false;
+        private bool updatePrescription = false;
 
         private void CheckForUpdates()
         {
@@ -173,6 +194,11 @@ namespace OCMS
             if (!string.IsNullOrWhiteSpace(postalCode.Text))
             {
                 updatePostalCode = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(prescription.Text))
+            {
+                updatePrescription = true;
             }
         }
 
@@ -322,14 +348,54 @@ namespace OCMS
             }
         }
 
+        private void updateCustomer(int generatedCustomerId, bool updatePrescription)
+        {
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    string customerQuery = "UPDATE optic.customer SET ";
+
+                    if (updatePrescription)
+                    {
+                        customerQuery += "prescription = @prescription";
+                    }
+
+                    customerQuery += " WHERE customer_id = @customer_id";
+
+                    cmd = new NpgsqlCommand(customerQuery, con);
+                    cmd.Transaction = transaction;
+
+                    if (updatePrescription)
+                    {
+                        cmd.Parameters.AddWithValue("@prescription", prescription.Text);
+                    }
+
+                    cmd.Parameters.AddWithValue("@customer_id", generatedCustomerId);
+
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Customer information has been updated successfully.");
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating customer information: {ex.Message}");
+                }
+            }
+        }
+
         private void update_Click(object sender, RoutedEventArgs e)
         {
             CheckForUpdates();
 
-            if (!string.IsNullOrEmpty(personID.Text) && !string.IsNullOrEmpty(addressID.Text))
+            if (!string.IsNullOrEmpty(personID.Text) && !string.IsNullOrEmpty(addressID.Text) && !string.IsNullOrEmpty(custID.Text))
             {
                 updatePerson(generatedPersonId, updateFirstName, updateLastName, updateEmail, updatePhone, updateBirthDate);
                 updateCustAddress(generatedAddressId, updateAddress, updateCity, updatePostalCode);
+                updateCustomer(generatedCustomerId, updatePrescription);
             }
             else if (!string.IsNullOrEmpty(personID.Text) && string.IsNullOrEmpty(addressID.Text))
             {
@@ -384,20 +450,14 @@ namespace OCMS
 
         private void appointment_Click(object sender, RoutedEventArgs e)
         {
-            string customerId = personID.Text;
+            string customerId = custID.Text;
             Appointments appointments = new Appointments(customerId);
             appointments.Show();
         }
 
-        private void prescription_Click(object sender, RoutedEventArgs e)
-        {
-            Prescription prescription = new Prescription();
-            prescription.Show();
-        }
-
         private void purch_hist_Click(object sender, RoutedEventArgs e)
         {
-            string customerId = personID.Text;
+            string customerId = custID.Text;
             Orders orders = new Orders(customerId);
             orders.Show();
         }

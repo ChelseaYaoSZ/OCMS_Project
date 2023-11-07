@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OCMS"
         mc:Ignorable="d"
+     
         Title="AppointmentDetails" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition Width="672*"/>
+            <ColumnDefinition Width="61*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="51*"/>
+            <RowDefinition Height="304*"/>
+            <RowDefinition Height="79*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Content="Appointment Details" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Height="37" Width="205"/>
+        <Label Grid.Column="1" Content="Appointment ID" HorizontalAlignment="Left" Margin="64,10,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="123"/>
+        <Label Grid.Column="1" Content="Date" HorizontalAlignment="Left" Margin="64,46,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="43"/>
+        <Label Grid.Column="1" Content="Time" HorizontalAlignment="Left" Margin="63,82,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="44"/>
+        <Label Grid.Column="1" Content="Eye Exam Fee" HorizontalAlignment="Left" Margin="64,118,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="105"/>
+        <Label Grid.Column="1" Content="Store" HorizontalAlignment="Left" Margin="63,154,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="47"/>
+        <Label Grid.Column="1" Content="Doctor" HorizontalAlignment="Left" Margin="63,190,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="58"/>
+        <TextBox x:Name="appointID" Grid.Column="1" HorizontalAlignment="Left" Margin="311,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontSize="16" IsEnabled="False" Height="27"/>
+        <DatePicker x:Name="date" Grid.Column="1" HorizontalAlignment="Left" Margin="311,46,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Width="289"/>
+        <TextBox x:Name="time" Grid.Column="1" HorizontalAlignment="Left" Margin="311,82,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontSize="16"/>
+        <TextBox x:Name="fee" Grid.Column="1" HorizontalAlignment="Left" Margin="311,118,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="289" FontSize="16"/>
+        <ComboBox x:Name="store" Grid.Column="1" HorizontalAlignment="Left" Margin="311,152,0,0" Grid.Row="1" VerticalAlignment="Top" Width="289" FontSize="16" DisplayMemberPath="StoreName" SelectedValuePath="StoreId">
+        </ComboBox>
+        <ComboBox x:Name="doctor" Grid.Column="1" HorizontalAlignment="Left" Margin="311,190,0,0" Grid.Row="1" VerticalAlignment="Top" Width="289" FontSize="16" DisplayMemberPath="Name" SelectedValuePath="DoctorId" >
+        </ComboBox>
+        <Button x:Name="add" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="117,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="20" Width="100" Height="35" Click="add_Click"/>
+        <Button x:Name="delete" Grid.Column="1" Content="Delete" HorizontalAlignment="Left" Margin="283,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="20"  Width="100" Height="35" Click="delete_Click"/>
+        <Button x:Name="cancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="443,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="20" Width="100" Height="35" Click="cancel_Click" />
+
     </Grid>
 </Window>

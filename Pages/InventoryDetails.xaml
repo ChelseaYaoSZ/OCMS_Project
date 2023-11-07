@@ -7,6 +7,42 @@
         mc:Ignorable="d"
         Title="InventoryDetails" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="365*"/>
+            <ColumnDefinition Width="361*"/>
+            <ColumnDefinition Width="34*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="127*"/>
+            <RowDefinition Height="67*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Product Details" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="2" Margin="283,0,0,0" Height="36" Width="154" Grid.Column="1"/>
+        <Label Grid.Column="1" Content="Frame Details" HorizontalAlignment="Left" Margin="12,12,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="87"/>
+        <Label Grid.Column="2" Content="Lens Details" HorizontalAlignment="Left" Margin="10,12,0,0" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="77"/>
+        <Label Grid.Column="1" Content="Frame ID" HorizontalAlignment="Left" Margin="22,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="58"/>
+        <Label Grid.Column="1" Content="Brand" HorizontalAlignment="Left" Margin="22,92,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="41"/>
+        <Label Grid.Column="1" Content="Model" HorizontalAlignment="Left" Margin="22,123,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="44"/>
+        <Label Grid.Column="1" Content="Colour" HorizontalAlignment="Left" Margin="22,154,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="45"/>
+        <Label Grid.Column="1" Content="Price" HorizontalAlignment="Left" Margin="22,200,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="36"/>
+        <Label Grid.Column="2" Content="Lens ID" HorizontalAlignment="Left" Margin="24,61,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="49"/>
+        <Label Grid.Column="2" Content="Lens Treatment" HorizontalAlignment="Left" Margin="24,92,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="90"/>
+        <Label Grid.Column="2" Content="Type" HorizontalAlignment="Left" Margin="24,123,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="35"/>
+        <Label Grid.Column="2" Content="Price" HorizontalAlignment="Left" Margin="24,154,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="36"/>
+        <TextBox x:Name="frameID" Grid.Column="1" HorizontalAlignment="Left" Margin="136,61,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
+        <TextBox x:Name="brand" Grid.Column="1" HorizontalAlignment="Left" Margin="136,92,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="model" Grid.Column="1" HorizontalAlignment="Left" Margin="136,123,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="colour" Grid.Column="1" HorizontalAlignment="Left" Margin="136,154,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="18"/>
+        <TextBox x:Name="framePrice" Grid.Column="1" HorizontalAlignment="Left" Margin="136,200,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="18"/>
+        <TextBox x:Name="lensID" Grid.Column="2" HorizontalAlignment="Left" Margin="132,65,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
+        <TextBox x:Name="treatment" Grid.Column="2" HorizontalAlignment="Left" Margin="132,96,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="type" Grid.Column="2" HorizontalAlignment="Left" Margin="132,123,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="lensPrice" Grid.Column="2" HorizontalAlignment="Left" Margin="132,156,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <Button x:Name="add" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="142,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="20" Height="55" Width="109" Click="add_Click"/>
+        <Button x:Name="update" Grid.Column="2" Content="Update" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="55" Width="109" FontSize="20" Click="update_Click"/>
+        <Label Grid.Column="1" Content="Size" HorizontalAlignment="Left" Margin="22,177,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="36"/>
+        <TextBox x:Name="size" Grid.Column="1" HorizontalAlignment="Left" Margin="136,177,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="18"/>
+
     </Grid>
 </Window>
