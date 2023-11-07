@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:OCMS"
         mc:Ignorable="d"
-        Title="InventoryWithRestAPI" Height="450" Width="800">
+        Title="InventoryWithRestAPI" Height="550" Width="900">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/Images/background.jpg"/>
+    </Window.Background>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="59*"/>
@@ -19,8 +23,8 @@
             <RowDefinition Height="283*"/>
             <RowDefinition Height="68*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="searchInfo" Grid.Column="1" HorizontalAlignment="Left" Height="29" Margin="10,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="239" SelectionOpacity="0.1" FontStyle="Italic"/>
-        <Button x:Name="search" Grid.Column="1" Content="Search" HorizontalAlignment="Center" Height="29" Grid.Row="1" VerticalAlignment="Center" Width="72" Click="search_Click"/>
+        <TextBox x:Name="searchInfo" Grid.Column="1" HorizontalAlignment="Left" Height="29" Margin="10,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="239" SelectionOpacity="0.1" FontStyle="Italic" Style="{StaticResource RoundedTextBoxStyle}"/>
+        <Button x:Name="search" Grid.Column="1" Content="Search" HorizontalAlignment="Left" Height="38" Grid.Row="1" VerticalAlignment="Center" Width="72" Click="search_Click" Style="{StaticResource SearchButtonStyle}" Margin="296,0,0,0"/>
         <DataGrid x:Name="dataGridInventory" Grid.Column="1" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,2,10,0" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Inventory ID" Binding="{Binding inventory_id}"/>
@@ -30,6 +34,6 @@
                 <DataGridTextColumn Header="Last Update" Binding="{Binding last_update, StringFormat=d}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Grid.Column="1" Content="Inventory" HorizontalAlignment="Left" Height="36" Margin="10,0,0,0" VerticalAlignment="Center" Width="239" FontWeight="Bold" FontSize="22"/>
+        <Label Grid.Column="1" Content="Inventory"  HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="239" FontWeight="Bold" FontSize="24" FontFamily="Broadway" Foreground="#FF854622" Grid.RowSpan="2"/>
     </Grid>
 </Window>
