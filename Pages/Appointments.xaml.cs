@@ -44,19 +44,25 @@ namespace OCMS
         public DataTable GetAllAppointments()
         {
             string query = @"SELECT a.appoint_id AS AppointmentID, 
-                                    a.date AS AppointmentDate, 
-                                    a.time AS AppointmentTime, 
-                                    cust.first_name AS CustomerFirstName, 
-                                    cust.last_name AS CustomerLastName, 
-                                    doc.first_name AS DoctorFirstName, 
-                                    doc.last_name AS DoctorLastName,
-                                    cu.person_id AS CustomerCustomerID
-                            FROM optic.appointment a
-                            JOIN optic.customer cu ON a.customer_id = cu.customer_id
-                            JOIN optic.person cust ON cu.person_id = cust.person_id
-                            JOIN optic.doctor d ON a.doctor_id = d.doctor_id
-                            JOIN optic.staff s ON d.staff_id = s.staff_id
-                            JOIN optic.person doc ON s.person_id = doc.person_id";
+                               a.date AS AppointmentDate, 
+                               a.time AS AppointmentTime,
+                               a.eye_exam_fee as EyeExamFee,
+                               cust.first_name AS CustomerFirstName, 
+                               cust.last_name AS CustomerLastName, 
+                               doc.first_name AS DoctorFirstName, 
+                               doc.last_name AS DoctorLastName,
+                               d.doctor_id AS DoctorId,
+                               cu.person_id AS CustomerCustomerID,
+                               store.store_id AS StoreId
+                        FROM optic.appointment a
+                        JOIN optic.customer cu ON a.customer_id = cu.customer_id
+                        JOIN optic.person cust ON cu.person_id = cust.person_id
+                        JOIN optic.doctor d ON a.doctor_id = d.doctor_id
+                        JOIN optic.staff s ON d.staff_id = s.staff_id
+                        JOIN optic.person doc ON s.person_id = doc.person_id
+                        JOIN optic.store_staff ss ON s.staff_id = ss.staff_id
+                        JOIN optic.store ON ss.store_id = store.store_id";
+                           
 
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(query, con);
 
@@ -78,10 +84,12 @@ namespace OCMS
             string query = @"SELECT a.appoint_id AS AppointmentID, 
                                     a.date AS AppointmentDate, 
                                     a.time AS AppointmentTime, 
+                                    a.eye_exam_fee as EyeExamFee,
                                     cust.first_name AS CustomerFirstName, 
                                     cust.last_name AS CustomerLastName, 
                                     doc.first_name AS DoctorFirstName, 
                                     doc.last_name AS DoctorLastName,
+                                    d.doctor_id AS DoctorId,
                                     cu.customer_id AS CustomerCustomerID
                             FROM optic.appointment a
                             JOIN optic.customer cu ON a.customer_id = cu.customer_id

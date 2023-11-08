@@ -70,9 +70,23 @@ namespace OCMS
             appointID.Text = row.Table.Columns.Contains("AppointmentID") ? row["AppointmentID"].ToString() : string.Empty;
             date.Text = row.Table.Columns.Contains("AppointmentDate") ? row["AppointmentDate"].ToString() : string.Empty;
             time.Text = row.Table.Columns.Contains("AppointmentTime") ? row["AppointmentTime"].ToString() : string.Empty;
-            fee.Text = row.Table.Columns.Contains("ExamFee") ? row["ExamFee"].ToString() : string.Empty;
-            store.SelectedItem = row.Table.Columns.Contains("StoreID") ? row["StoreID"].ToString() : null;
-            doctor.SelectedItem = row.Table.Columns.Contains("DoctorID") ? row["DoctorID"].ToString() : null;
+            fee.Text = row.Table.Columns.Contains("EyeExamFee") ? row["EyeExamFee"].ToString() : string.Empty;
+            //store.SelectedItem = row.Table.Columns.Contains("StoreId") ? row["StoreId"].ToString() : null;
+            if (row.Table.Columns.Contains("StoreId") && row["StoreId"] != DBNull.Value)
+            {
+                int storeId = Convert.ToInt32(row["StoreId"]);
+                store.SelectedValue = storeId;
+            }
+
+            if (row.Table.Columns.Contains("DoctorId") && row["DoctorId"] != DBNull.Value)
+            {
+                int doctorId = Convert.ToInt32(row["DoctorId"]);
+                doctor.SelectedValue = doctorId;
+            }
+
+            custID.Text = row.Table.Columns.Contains("CustomerCustomerID") ? row["CustomerCustomerID"].ToString() : string.Empty;
+            lastName.Text = row.Table.Columns.Contains("CustomerLastName") ? row["CustomerLastName"].ToString() : string.Empty;
+            firstName.Text = row.Table.Columns.Contains("CustomerFirstName") ? row["CustomerFirstName"].ToString() : string.Empty;
         }
 
         public class DoctorInfo
