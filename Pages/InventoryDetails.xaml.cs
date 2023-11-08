@@ -107,6 +107,56 @@ namespace OCMS
             }
         }
 
+        private bool updateBrand = false;
+        private bool  updateModel= false;
+        private bool updateColour= false;
+        private bool updateSize= false;
+        private bool updateFramePrice = false;
+        private bool updateLensType = false;
+        private bool updateLensTreatment = false;
+        private bool updateLensPrice = false;
+        private bool updateFrameInvQuantity = false;
+        private bool updateLensInvQuantity = false;
+
+        private void CheckForUpdates()
+        {
+            if (!string.IsNullOrWhiteSpace(brand.Text))
+            {
+                updateBrand = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.Text))
+            {
+                updateModel = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(colour.Text))
+            {
+                updateColour = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(size.Text))
+            {
+                updateSize = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(framePrice.Text))
+            {
+                updateFramePrice = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(type.Text))
+            {
+                updateLensType = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(treatment.Text))
+            {
+                updateLensTreatment = true;
+            }
+
+        }
+
         public class StoreInfo
         {
             public int StoreId { get; set; }

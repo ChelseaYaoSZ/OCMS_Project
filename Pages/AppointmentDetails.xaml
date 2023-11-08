@@ -42,6 +42,5 @@
         <TextBox x:Name="appointID" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="300,65,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" FontSize="16" IsEnabled="False" Height="27"/>
         <Label Grid.Column="1" Content="First Name" HorizontalAlignment="Left" Margin="86,102,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="35" Width="131"/>
         <TextBox x:Name="firstName" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="300,103,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" FontSize="16" IsEnabled="True" Height="27"/>
-
     </Grid>
 </Window>
