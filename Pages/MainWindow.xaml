@@ -32,7 +32,7 @@
         <Label Grid.Column="1" Content="User Name" HorizontalAlignment="Left" Margin="52,116,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.221,0.324" FontSize="20" FontFamily="Bookman Old Style" Foreground="#FF854622"/>
         <TextBox x:Name="userName" Grid.Column="1" HorizontalAlignment="Left" Margin="172,116,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Style="{StaticResource RoundedTextBoxStyle}" Height="33"/>
         <Label Grid.Column="1" Content="Password" HorizontalAlignment="Left" Margin="52,173,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="20"  FontFamily="Bookman Old Style" Foreground="#FF854622"/>
-        <Button x:Name="login" Grid.Column="1" Content="Login" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="18" Height="46" Width="114" Click="login_Click" Margin="172,255,0,0" Style="{StaticResource RoundedButtonStyle}" />
+        <Button x:Name="login" Grid.Column="1" Content="Login" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" FontSize="18" Height="46" Width="114" Click="login_Click" Margin="172,255,0,0" Style="{StaticResource SearchButtonStyle}" />
         <PasswordBox x:Name="password" Grid.Column="1" HorizontalAlignment="Left" Margin="172,174,0,0" Grid.Row="1" VerticalAlignment="Top" Width="236" FontSize="20" Background="#FFFEF3E7" Height="33">
             <PasswordBox.Template>
                 <ControlTemplate TargetType="{x:Type PasswordBox}">

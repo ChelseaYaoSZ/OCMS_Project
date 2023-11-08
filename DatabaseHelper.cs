@@ -19,7 +19,7 @@ namespace OCMS
             string port = "Port=5432;";
             string dbName = "Database=optic;";
             string userName = "Username=postgres;";
-            string password = "Password=1234;";
+            string password = "Password=133080;";
 
             string connectionString = string.Format("{0}{1}{2}{3}{4}", host, port, dbName, userName, password);
             return connectionString;

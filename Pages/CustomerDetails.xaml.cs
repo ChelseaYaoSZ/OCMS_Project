@@ -450,8 +450,7 @@ namespace OCMS
 
         private void appointment_Click(object sender, RoutedEventArgs e)
         {
-            string customerId = custID.Text;
-            Appointments appointments = new Appointments(customerId);
+            Appointments appointments = new Appointments(custID.Text, firstName.Text, lastName.Text);
             appointments.Show();
         }
 
