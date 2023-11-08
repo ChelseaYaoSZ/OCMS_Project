@@ -135,9 +135,6 @@
     <Compile Include="Pages\Orders.xaml.cs">
       <DependentUpon>Orders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Prescription.xaml.cs">
-      <DependentUpon>Prescription.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\StaffInfoPage.xaml.cs">
       <DependentUpon>StaffInfoPage.xaml</DependentUpon>
     </Compile>
@@ -201,10 +198,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Orders.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Prescription.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

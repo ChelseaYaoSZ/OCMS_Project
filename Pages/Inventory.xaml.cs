@@ -34,11 +34,13 @@ namespace OCMS
         public DataTable GetAllInventory()
         {
             string query = @"SELECT i.inventory_id, i.quantity, i.last_update,
-                                l.lens_id, l.lens_treatment, l.type, l.price,
-                                f.frame_id, f.brand, f.model, f.colour, f.size, f.price
+                                l.lens_id, l.lens_treatment, l.type, l.lens_price,
+                                f.frame_id, f.brand, f.model, f.colour, f.size, f.frame_price,
+                                s.store_id, s.name    
                                 FROM optic.inventory i
                                 LEFT JOIN optic.lens l on i.lens_id = l.lens_id
-                                LEFT JOIN optic.frame f on i.frame_id = f.frame_id";
+                                LEFT JOIN optic.frame f on i.frame_id = f.frame_id
+                                LEFT JOIN optic.store s on i.store_id = s.store_id";
 
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(query, con);
 
@@ -58,11 +60,13 @@ namespace OCMS
         public DataTable SearchInventory(string searchTerm)
         {
             string query = @"SELECT i.inventory_id, i.quantity, i.last_update,
-                                l.lens_id, l.lens_treatment, l.type, l.price,
-                                f.frame_id, f.brand, f.model, f.colour, f.size, f.price
+                                l.lens_id, l.lens_treatment, l.type, l.lens_price,
+                                f.frame_id, f.brand, f.model, f.colour, f.size, f.frame_price,
+                                s.store_id, s.name  
                                 FROM optic.inventory i
                                 LEFT JOIN optic.lens l on i.lens_id = l.lens_id
                                 LEFT JOIN optic.frame f on i.frame_id = f.frame_id
+                                LEFT JOIN optic.store s on i.store_id = s.store_id
                                 WHERE f.brand ILIKE @SearchTerm 
                                     OR l.type ILIKE @SearchTerm";
 
