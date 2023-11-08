@@ -148,90 +148,119 @@ namespace OCMS
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            using (NpgsqlTransaction transaction = con.BeginTransaction())
-            {
-                try
+                using (NpgsqlTransaction transaction = con.BeginTransaction())
                 {
-                        // SQL query with parameters
-                        string frameQuery = "INSERT INTO optic.frame (brand, model, colour, size, frame_price) " +
-                                       " VALUES (@brand, @model, @colour, @size, @price) " +
-                                       " RETURNING frame_id";
-
-                        cmd = new NpgsqlCommand(frameQuery, con);
-                        cmd.Transaction = transaction;
-
-                        cmd.Parameters.AddWithValue("@brand", brand.Text);
-                        cmd.Parameters.AddWithValue("@model", model.Text);
-                        cmd.Parameters.AddWithValue("@colour", colour.Text);
-                        cmd.Parameters.AddWithValue("@size", size.Text);
-                  
-                        bool parseResult = decimal.TryParse(framePrice.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal price);
-                        if (parseResult)
-                        {
-                            cmd.Parameters.AddWithValue("@price", price);
-                        }
-                        else
-                        {
-                           MessageBox.Show("Please enter a valid price.");
-                        }
-
-                        generatedFrameId = (int)cmd.ExecuteScalar();
-
-                        // SQL query with parameters
-                        string lensQuery = "INSERT INTO optic.lens (lens_treatment, type, lens_price) " +
-                                       " VALUES (@treatment, @type, @price) " +
-                                       " RETURNING lens_id";
-
-                        cmd = new NpgsqlCommand(lensQuery, con);
-                        cmd.Transaction = transaction;
-
-                        cmd.Parameters.AddWithValue("@treatment", treatment.Text);
-                        cmd.Parameters.AddWithValue("@type", type.Text);
-                        cmd.Parameters.AddWithValue("@price", decimal.Parse(lensPrice.Text));
-
-                        generatedLensId = (int)cmd.ExecuteScalar();
-
-                        bool isFrame = !string.IsNullOrEmpty(frameID.Text) && int.TryParse(frameID.Text, out int _);
-                        bool isLens = !isFrame; 
-
-                        string inventoryQuery = "INSERT INTO optic.inventory (frame_id, lens_id, quantity, store_id, price) " +
-                                                "VALUES (@frameID, @lensID, @quantity, @storeID, @price) " +
-                                                "RETURNING inventory_id"; 
-
-                        cmd = new NpgsqlCommand(inventoryQuery, con);
-                        cmd.Transaction = transaction;
-
-                        if (isFrame)
-                        {
-                            cmd.Parameters.AddWithValue("@frameID", generatedFrameId);
-                            cmd.Parameters.AddWithValue("@lensID", DBNull.Value); // or some default value if lens_id is not nullable
-                            cmd.Parameters.AddWithValue("@quantity", int.Parse(frameQuantity.Text));
-                            cmd.Parameters.AddWithValue("@price", decimal.Parse(framePrice.Text));
-                        }
-                        else if (isLens)
-                        {
-                            cmd.Parameters.AddWithValue("@frameID", DBNull.Value); // or some default value if frame_id is not nullable
-                            cmd.Parameters.AddWithValue("@lensID", generatedLensId);
-                            cmd.Parameters.AddWithValue("@quantity", int.Parse(lensQuantity.Text));
-                            cmd.Parameters.AddWithValue("@price", decimal.Parse(lensPrice.Text));
-                        }
-
-                        cmd.Parameters.AddWithValue("@storeID", store.SelectedValue);
-
-                        int generatedInventoryId = (int)cmd.ExecuteScalar();
-                        transaction.Commit();
-
-
-                    }
-                    catch (NpgsqlException ex)
+                    try
                     {
-                        transaction.Rollback();
-                        MessageBox.Show($"An error occured: {ex.Message}");
-                    }
-            }
-        }
+                        int? generatedFrameId = null;
+                        int? generatedLensId = null;
+                        int? generatedInventoryId = null;
 
-        
+                        // Adding a frame
+                        if (!string.IsNullOrWhiteSpace(framePrice.Text)) // Replace with your actual check for adding a frame
+                        {
+                            string frameQuery = "INSERT INTO optic.frame (brand, model, colour, size, frame_price) " +
+                                                "VALUES (@brand, @model, @colour, @size, @price) " +
+                                                "RETURNING frame_id";
+
+                            using (var frameCmd = new NpgsqlCommand(frameQuery, con, transaction))
+                            {
+                                frameCmd.Parameters.AddWithValue("@brand", brand.Text);
+                                frameCmd.Parameters.AddWithValue("@model", model.Text);
+                                frameCmd.Parameters.AddWithValue("@colour", colour.Text);
+                                frameCmd.Parameters.AddWithValue("@size", size.Text);
+
+                                if (decimal.TryParse(framePrice.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal framePriceValue))
+                                {
+                                    frameCmd.Parameters.AddWithValue("@price", framePriceValue);
+                                    generatedFrameId = (int)frameCmd.ExecuteScalar();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Please enter a valid frame price.");
+                                    return;
+                                }
+                            }
+                        }
+
+                        // Adding a lens
+                        if (!string.IsNullOrWhiteSpace(lensPrice.Text)) // Replace with your actual check for adding a lens
+                        {
+                            string lensQuery = "INSERT INTO optic.lens (lens_treatment, type, lens_price) " +
+                                               "VALUES (@treatment, @type, @price) " +
+                                               "RETURNING lens_id";
+
+                            using (var lensCmd = new NpgsqlCommand(lensQuery, con, transaction))
+                            {
+                                lensCmd.Parameters.AddWithValue("@treatment", treatment.Text);
+                                lensCmd.Parameters.AddWithValue("@type", type.Text);
+
+                                if (decimal.TryParse(lensPrice.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal lensPriceValue))
+                                {
+                                    lensCmd.Parameters.AddWithValue("@price", lensPriceValue);
+                                    generatedLensId = (int)lensCmd.ExecuteScalar();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Please enter a valid lens price.");
+                                    return;
+                                }
+                            }
+                        }
+
+                        // Ensure at least one ID is generated
+                        if (!generatedFrameId.HasValue && !generatedLensId.HasValue)
+                        {
+                            MessageBox.Show("Please enter details to add either a frame or a lens.");
+                            transaction.Rollback(); // Rollback transaction as nothing has been added
+                            return;
+                        }
+
+                        // Insert into inventory with the generated IDs
+                        string inventoryQuery = "INSERT INTO optic.inventory (frame_id, lens_id, quantity, store_id) " +
+                                                "VALUES (@frameID, @lensID, @quantity, @storeID) " +
+                                                "RETURNING inventory_id";
+
+                        using (var inventoryCmd = new NpgsqlCommand(inventoryQuery, con, transaction))
+                        {
+                            inventoryCmd.Parameters.AddWithValue("@frameID", generatedFrameId.HasValue ? (object)generatedFrameId : DBNull.Value);
+                            inventoryCmd.Parameters.AddWithValue("@lensID", generatedLensId.HasValue ? (object)generatedLensId : DBNull.Value);
+                            inventoryCmd.Parameters.AddWithValue("@quantity", generatedFrameId.HasValue ? int.Parse(frameQuantity.Text) : int.Parse(lensQuantity.Text));
+                            inventoryCmd.Parameters.AddWithValue("@storeID", store.SelectedValue); // Make sure this is the correct value
+
+                           generatedInventoryId = (int)inventoryCmd.ExecuteScalar();
+                        }
+
+                        // Commit transaction if all is well
+                        transaction.Commit();
+                       
+                    // Set the generated IDs to the TextBoxes
+                        if (generatedFrameId.HasValue)
+                        {
+                            frameID.Text = generatedFrameId.Value.ToString();
+                            frameInventoryID.Text = generatedInventoryId.Value.ToString();
+                        }
+
+                        if (generatedLensId.HasValue)
+                        {
+                            lensID.Text = generatedLensId.Value.ToString();
+                            lensInventoryID.Text = generatedInventoryId.Value.ToString();
+                        }
+
+                    MessageBox.Show("Item was added successfully.");
+                    }
+                    catch (Exception ex) // Catch a more general exception
+                    {
+                        // If an error occurs, rollback the transaction and show the message
+                        transaction.Rollback();
+                        MessageBox.Show($"An error occurred: {ex.Message}");
+                    }
+                }
+            }
+
+
+
+
 
         private void update_Click(object sender, RoutedEventArgs e)
         {
