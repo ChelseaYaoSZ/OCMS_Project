@@ -50,7 +50,7 @@ namespace OCMS
                                     cust.last_name AS CustomerLastName, 
                                     doc.first_name AS DoctorFirstName, 
                                     doc.last_name AS DoctorLastName,
-                                    cu.person_id AS CustomerPersonID
+                                    cu.person_id AS CustomerCustomerID
                             FROM optic.appointment a
                             JOIN optic.customer cu ON a.customer_id = cu.customer_id
                             JOIN optic.person cust ON cu.person_id = cust.person_id
@@ -73,7 +73,7 @@ namespace OCMS
             dataGridAppointments.ItemsSource = appointments.DefaultView;
         }
 
-        public DataTable SearchAppointments(string searchTerm, DateTime? appointmentDate, int? personId)
+        public DataTable SearchAppointments(string searchTerm, DateTime? appointmentDate, int? customerId)
         {
             string query = @"SELECT a.appoint_id AS AppointmentID, 
                                     a.date AS AppointmentDate, 
@@ -82,7 +82,7 @@ namespace OCMS
                                     cust.last_name AS CustomerLastName, 
                                     doc.first_name AS DoctorFirstName, 
                                     doc.last_name AS DoctorLastName,
-                                    cu.person_id AS CustomerPersonID
+                                    cu.customer_id AS CustomerCustomerID
                             FROM optic.appointment a
                             JOIN optic.customer cu ON a.customer_id = cu.customer_id
                             JOIN optic.person cust ON cu.person_id = cust.person_id
@@ -108,9 +108,9 @@ namespace OCMS
             }
 
             // Check if a person ID was provided and add it to the conditions
-            if (personId.HasValue)
+            if (customerId.HasValue)
             {
-                conditions.Add("cu.person_id = @PersonID");
+                conditions.Add("cu.customer_id = @CustomerID");
             }
 
             // Combine the conditions with OR or AND depending on your logic
@@ -130,9 +130,9 @@ namespace OCMS
             {
                 dataAdapter.SelectCommand.Parameters.AddWithValue("@AppointmentDate", appointmentDate.Value);
             }
-            if (personId.HasValue)
+            if (customerId.HasValue)
             {
-                dataAdapter.SelectCommand.Parameters.AddWithValue("@PersonID", personId.Value);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@CustomerID", customerId.Value);
             }
 
             DataTable dataTable = new DataTable();
@@ -144,18 +144,18 @@ namespace OCMS
         {
             string searchTerm = "";
             DateTime? selectedDate = null;
-            int? personId = null;
+            int? customerId = null;
 
             if (!string.IsNullOrEmpty(_customerId))
             {
-                personId = int.Parse(_customerId);
+                customerId = int.Parse(_customerId);
 
             } else { 
                 searchTerm = doctor.Text;
                 selectedDate = date.SelectedDate;
             }
 
-            DataTable appointments = SearchAppointments(searchTerm, selectedDate, personId);
+            DataTable appointments = SearchAppointments(searchTerm, selectedDate, customerId);
             dataGridAppointments.ItemsSource = appointments.DefaultView;
         }
 
