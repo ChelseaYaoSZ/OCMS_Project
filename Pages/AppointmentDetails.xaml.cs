@@ -29,11 +29,12 @@ namespace OCMS
         int generatedAppointmentId;
         private string _custId;
 
-        public AppointmentDetails(string custID)
+        public AppointmentDetails(string custID, string firstName, string lastName)
         {
             InitializeComponent();
             DatabaseHelper dbHelper = new DatabaseHelper();
             con = dbHelper.GetConnection();
+            FillAppointmentDetails(custID, firstName, lastName);
 
             //Set the doctors combobox
             doctor.DataContext = FetchDoctors();
@@ -87,6 +88,13 @@ namespace OCMS
             custID.Text = row.Table.Columns.Contains("CustomerCustomerID") ? row["CustomerCustomerID"].ToString() : string.Empty;
             lastName.Text = row.Table.Columns.Contains("CustomerLastName") ? row["CustomerLastName"].ToString() : string.Empty;
             firstName.Text = row.Table.Columns.Contains("CustomerFirstName") ? row["CustomerFirstName"].ToString() : string.Empty;
+        }
+
+        private void FillAppointmentDetails(string customer_id, string first_name, string last_name)
+        {
+            custID.Text = customer_id;
+            firstName.Text = first_name;
+            lastName.Text = last_name;
         }
 
         public class DoctorInfo

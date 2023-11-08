@@ -23,6 +23,8 @@ namespace OCMS
     {
         private NpgsqlConnection con;
         private string _customerId;
+        private string _firstName;
+        private string _lastName;
         public Appointments()
         {
             InitializeComponent();
@@ -32,13 +34,16 @@ namespace OCMS
             this.Closed += AppointmentInfoPage_Closed;
         }
 
-        public Appointments(string customerId)
+        public Appointments(string customerId, string firstName, string lastName)
         {
             InitializeComponent();
             DatabaseHelper dbHelper = new DatabaseHelper();
             con = dbHelper.GetConnection();
             _customerId = customerId;
+            _firstName = firstName;
+            _lastName = lastName;
             LoadSpecificAppointment();
+            this.Closed += AppointmentInfoPage_Closed;
         }
 
         public DataTable GetAllAppointments()
@@ -183,8 +188,7 @@ namespace OCMS
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            string customerId = _customerId;
-            AppointmentDetails appointmentDetails = new AppointmentDetails(customerId);
+            AppointmentDetails appointmentDetails = new AppointmentDetails(_customerId, _firstName, _lastName);
             appointmentDetails.Show();
         }
 
