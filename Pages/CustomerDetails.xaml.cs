@@ -355,29 +355,40 @@ namespace OCMS
                 try
                 {
                     string customerQuery = "UPDATE optic.customer SET ";
+                    bool needToUpdate = false; // Flag to track if we have something to update
 
                     if (updatePrescription)
                     {
                         customerQuery += "prescription = @prescription";
+                        needToUpdate = true;
                     }
 
-                    customerQuery += " WHERE customer_id = @customer_id";
-
-                    cmd = new NpgsqlCommand(customerQuery, con);
-                    cmd.Transaction = transaction;
-
-                    if (updatePrescription)
+                    // Only append WHERE clause if we have something to update
+                    if (needToUpdate)
                     {
-                        cmd.Parameters.AddWithValue("@prescription", prescription.Text);
+                        customerQuery += " WHERE customer_id = @customer_id";
+
+                        cmd = new NpgsqlCommand(customerQuery, con);
+                        cmd.Transaction = transaction;
+
+                        if (updatePrescription)
+                        {
+                            cmd.Parameters.AddWithValue("@prescription", prescription.Text);
+                        }
+
+                        cmd.Parameters.AddWithValue("@customer_id", generatedCustomerId);
+
+                        cmd.ExecuteNonQuery();
+
+                        transaction.Commit();
+
+                        MessageBox.Show("Customer information has been updated successfully.");
                     }
-
-                    cmd.Parameters.AddWithValue("@customer_id", generatedCustomerId);
-
-                    cmd.ExecuteNonQuery();
-
-                    transaction.Commit();
-
-                    MessageBox.Show("Customer information has been updated successfully.");
+                    else
+                    {
+                        // Handle the case where there's nothing to update
+                        MessageBox.Show("No information was updated because no changes were specified.");
+                    }
                 }
                 catch (NpgsqlException ex)
                 {
@@ -386,6 +397,7 @@ namespace OCMS
                 }
             }
         }
+
 
         private void update_Click(object sender, RoutedEventArgs e)
         {
