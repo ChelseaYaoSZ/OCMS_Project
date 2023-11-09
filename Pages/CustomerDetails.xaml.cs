@@ -355,7 +355,7 @@ namespace OCMS
                 try
                 {
                     string customerQuery = "UPDATE optic.customer SET ";
-                    bool needToUpdate = false; // Flag to track if we have something to update
+                    bool needToUpdate = false;
 
                     if (updatePrescription)
                     {
@@ -363,7 +363,6 @@ namespace OCMS
                         needToUpdate = true;
                     }
 
-                    // Only append WHERE clause if we have something to update
                     if (needToUpdate)
                     {
                         customerQuery += " WHERE customer_id = @customer_id";
@@ -386,7 +385,6 @@ namespace OCMS
                     }
                     else
                     {
-                        // Handle the case where there's nothing to update
                         MessageBox.Show("No information was updated because no changes were specified.");
                     }
                 }
@@ -397,7 +395,6 @@ namespace OCMS
                 }
             }
         }
-
 
         private void update_Click(object sender, RoutedEventArgs e)
         {

@@ -48,7 +48,8 @@ namespace OCMS
 
         public DataTable SearchCustomers(string searchTerm)
         {
-            string query = @"SELECT DISTINCT p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address,  c.prescription, c.customer_id 
+            string query = @"SELECT DISTINCT a.address, a.city, a.postal_code, p.person_id, a.address_id, c.customer_id,
+                                p.first_name, p.last_name, p.birth_date, p.phone, p.email, c.prescription
                             FROM optic.customer c
                             Left JOIN optic.person p on p.person_id = c.person_id 
                             Left JOIN optic.address a on a.address_id = c.address_id 
