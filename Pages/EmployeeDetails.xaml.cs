@@ -132,8 +132,8 @@ namespace OCMS
                         generatedAddressId = (int)cmd.ExecuteScalar();
 
                         // SQL query with parameters for staff insertion
-                        string staffQuery = "INSERT INTO optic.staff (address_id, person_id, username, password, user_type, active, manager_staff_id) " +
-                                            " VALUES (@address_id, @person_id, @username, @password, @user_type, @active, @manager_staff_id) " +
+                        string staffQuery = "INSERT INTO optic.staff (address_id, person_id, username, password, user_type, active, manager_id) " +
+                                            " VALUES (@address_id, @person_id, @username, @password, @user_type, @active, @manager_id) " +
                                             " RETURNING staff_id";
 
                         cmd = new NpgsqlCommand(staffQuery, con);
@@ -149,7 +149,7 @@ namespace OCMS
 
                         if (int.TryParse(managerID.Text, out int managerId))
                         {
-                            cmd.Parameters.AddWithValue("@manager_staff_id", managerId);
+                            cmd.Parameters.AddWithValue("@manager_id", managerId);
                         }
                         else
                         {
@@ -295,7 +295,7 @@ namespace OCMS
 
                     if (updateManagerId)
                     {
-                        staffQuery += "manager_staff_id = @manager_staff_id, ";
+                        staffQuery += "manager_id = @manager_id, ";
                     }
 
                     // Remove the trailing comma and space
@@ -330,7 +330,7 @@ namespace OCMS
 
                     if (int.TryParse(managerID.Text, out int managerId))
                     {
-                        cmd.Parameters.AddWithValue("@manager_staff_id", managerId);
+                        cmd.Parameters.AddWithValue("@manager_id", managerId);
                     }
 
                     cmd.Parameters.AddWithValue("@staff_id", originalStaffId);
