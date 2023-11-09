@@ -35,7 +35,7 @@ namespace OCMS
         public DataTable GetAllStaffs()
         {
             string query = @"SELECT a.address, a.city, a.postal_code, p.person_id, a.address_id,s.staff_id,
-                                p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address_id, a.city, a.address ,s.username, s.password, s.user_type, s.active
+                                p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address_id,s.username, s.password, s.user_type, s.active
                                 FROM optic.staff s
                                 LEFT JOIN optic.person p on p.person_id = s.person_id
                                 LEFT JOIN optic.address a on a.address_id = s.address_id";
@@ -57,13 +57,14 @@ namespace OCMS
 
         public DataTable SearchStaffs(string searchTerm)
         {
-            string query = @"SELECT p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address ,s.user_type, s.active
-                            FROM optic.staff s
-                            LEFT JOIN optic.person p on p.person_id = s.person_id
-                            LEFT JOIN optic.address a on a.address_id = s.address_id 
-                            WHERE p.first_name ILIKE @SearchTerm 
-                             OR p.phone ILIKE @SearchTerm 
-                             OR p.email ILIKE @SearchTerm";
+            string query = @"SELECT a.address, a.city, a.postal_code, p.person_id, a.address_id,s.staff_id,
+                                p.first_name, p.last_name, p.birth_date, p.phone, p.email, a.address_id,s.username, s.password, s.user_type, s.active
+                                FROM optic.staff s
+                                LEFT JOIN optic.person p on p.person_id = s.person_id
+                                LEFT JOIN optic.address a on a.address_id = s.address_id
+                                 WHERE p.first_name ILIKE @SearchTerm 
+                                 OR p.phone ILIKE @SearchTerm 
+                                 OR p.email ILIKE @SearchTerm";
 
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(query, con);
             dataAdapter.SelectCommand.Parameters.AddWithValue("@SearchTerm", "%" + searchTerm + "%");
