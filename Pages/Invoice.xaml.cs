@@ -208,7 +208,7 @@ namespace OCMS
             List<FrameInfo> frames = new List<FrameInfo>();
 
             // SQL query to get the frame_id and frame description (a combination of brand, model, colour, size and price) from the frame table
-            string query = @"SELECT frame_id, brand || ' ' || model || ', Colour: ' || colour || ', Size: ' || size || ', Price: $' || price::text AS FrameDescription 
+            string query = @"SELECT frame_id, brand || ' ' || model || ', Colour: ' || colour || ', Size: ' || size || ', Price: $' || frame_price::text AS FrameDescription 
                      FROM optic.frame";
 
             try
@@ -273,7 +273,7 @@ namespace OCMS
             List<LensInfo> lenses = new List<LensInfo>();
 
             // SQL query to get the lens_id and lens description (a combination of type, lens_treatment and price) from the lens table
-            string query = @"SELECT lens_id, type || ', Treatment: ' || COALESCE(lens_treatment, 'No Treatment')  || ', Price: $' || price AS LensDescription
+            string query = @"SELECT lens_id, type || ', Treatment: ' || COALESCE(lens_treatment, 'No Treatment')  || ', Price: $' || lens_price AS LensDescription
                              FROM optic.lens";
 
             try
