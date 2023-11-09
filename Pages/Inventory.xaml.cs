@@ -67,11 +67,11 @@ namespace OCMS
                                 LEFT JOIN optic.lens l on i.lens_id = l.lens_id
                                 LEFT JOIN optic.frame f on i.frame_id = f.frame_id
                                 LEFT JOIN optic.store s on i.store_id = s.store_id
-                                WHERE f.brand ILIKE @SearchTerm 
+                                WHERE CAST(i.inventory_id AS TEXT) ILIKE @SearchTerm 
                                     OR l.type ILIKE @SearchTerm";
 
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(query, con);
-            dataAdapter.SelectCommand.Parameters.AddWithValue("@SearchTerm", "%" + searchTerm + "%");
+            dataAdapter.SelectCommand.Parameters.AddWithValue("@SearchTerm", searchTerm);
             DataTable dataTable = new DataTable();
             dataAdapter.Fill(dataTable);
             return dataTable;
