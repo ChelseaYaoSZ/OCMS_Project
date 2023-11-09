@@ -4,47 +4,39 @@ using RestAPI_OCMS.Models;
 
 namespace RestAPI_OCMS.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class OCMS_Controller : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfigurationWrapper _configurationWrapper;
+        private readonly IDBApplication _dbApplication;
 
-        public OCMS_Controller(IConfiguration configuration)
+        public OCMS_Controller(IConfigurationWrapper configurationWrapper, IDBApplication dbApplication)
         {
-            _configuration = configuration;
+            _configurationWrapper = configurationWrapper;
+            _dbApplication = dbApplication;
         }
 
         //GetAllInventorys API
         [HttpGet]
         [Route("GetAllInventory")]
-
-        //Create API Method
         public Response GetAllInventory()
         {
-            Response response = new Response();
-
-            NpgsqlConnection con =
-                new NpgsqlConnection(_configuration.GetConnectionString("inventoryConnection"));
-
-            DBApplication dBA = new DBApplication();
-            response = dBA.GetAllInventory(con);
-
-            return response;
+            using (NpgsqlConnection con = new NpgsqlConnection(_configurationWrapper.GetConnectionString("inventoryConnection")))
+            {
+                return _dbApplication.GetAllInventory(con);
+            }
         }
 
         //Search 1 inventory by ID
         [HttpGet]
         [Route("GetInventoryById/{id}")]
-
         public Response GetInventoryById(int id)
         {
-            Response response = new Response();
-            NpgsqlConnection con =
-                new NpgsqlConnection(_configuration.GetConnectionString("inventoryConnection"));
-            DBApplication dBA = new DBApplication();
-            response = dBA.GetInventoryById(con, id);
-            return response;
+            using (NpgsqlConnection con = new NpgsqlConnection(_configurationWrapper.GetConnectionString("inventoryConnection")))
+            {
+                return _dbApplication.GetInventoryById(con, id);
+            }
         }
     }
 }

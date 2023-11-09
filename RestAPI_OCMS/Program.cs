@@ -1,8 +1,13 @@
+using RestAPI_OCMS.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IDBApplication, DBApplication>();
+builder.Services.AddSingleton<IConfigurationWrapper>(provider =>
+    new ConfigurationWrapper(provider.GetRequiredService<IConfiguration>()));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
