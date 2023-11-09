@@ -290,13 +290,19 @@ namespace OCMS
         private void Frame_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            if (comboBox != null)
+            if (comboBox != null && comboBox.SelectedValue != null && store.SelectedValue != null)
             {
-                var selectedFrameId = (int)frame.SelectedValue;
+                // The SelectedValue is an actual value and not null, so it's safe to cast to int.
+                var selectedFrameId = (int)comboBox.SelectedValue;
                 int storeId = Convert.ToInt32(store.SelectedValue);
                 currentInventoryId = GetInventoryId(selectedFrameId, "Frame", storeId);
 
                 DisableOtherComboBox(lens);
+            }
+            else
+            {
+                currentInventoryId = -1; 
+                DisableOtherComboBox(lens); 
             }
         }
 
@@ -347,14 +353,17 @@ namespace OCMS
         private void Lens_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            if (comboBox != null)
+            if (comboBox != null && comboBox.SelectedValue != null && store.SelectedValue != null)
             {
                 var selectedLensId = (int)lens.SelectedValue;
                 int storeId = Convert.ToInt32(store.SelectedValue);
-
-                // Assuming lens_id is what you use to get the inventory id for lenses
                 currentInventoryId = GetInventoryId(selectedLensId, "Lens", storeId);
 
+                DisableOtherComboBox(frame);
+            }
+            else
+            {
+                currentInventoryId = -1;
                 DisableOtherComboBox(frame);
             }
         }
@@ -497,8 +506,8 @@ namespace OCMS
             if (isEyeExam)
             {
                 // Process for eye exam order
-                using (var transaction = con.BeginTransaction())
-                {
+                  using (var transaction = con.BeginTransaction())
+                  {
                     try
                     {
                         selectedDate = invoiceDate.SelectedDate;
@@ -542,6 +551,7 @@ namespace OCMS
                     }
                 }
             }
+          
             else
             {
                 con.Open();

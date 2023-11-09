@@ -567,56 +567,51 @@ namespace OCMS
             bool updateFrameInventoryBool = false;
             bool updateLensInventoryBool = false;
 
-            // Parse IDs from the TextBoxes for frame and lens
             if (int.TryParse(frameID.Text, out int localFrameId))
             {
-                updateFrameBool = true; // only set to true if parsing was successful
+                updateFrameBool = true; 
                 updateFrame(localFrameId, updateBrand, updateModel, updateColour, updateSize, updateFramePrice);
             }
-            else if (!string.IsNullOrEmpty(frameID.Text)) // only show the message if something was entered
+            else if (!string.IsNullOrEmpty(frameID.Text))
             {
                 MessageBox.Show("Invalid Frame ID");
             }
 
             if (int.TryParse(lensID.Text, out int localLensId))
             {
-                updateLensBool = true; // only set to true if parsing was successful
+                updateLensBool = true; 
                 updateLens(localLensId, updateLensTreatment, updateLensType, updateLensPrice);
             }
-            else if (!string.IsNullOrEmpty(lensID.Text)) // only show the message if something was entered
+            else if (!string.IsNullOrEmpty(lensID.Text)) 
             {
                 MessageBox.Show("Invalid Lens ID");
             }
 
-            // Parse IDs from the TextBoxes for inventory
             if (int.TryParse(frameInventoryID.Text, out int localFrameInventoryId))
             {
-                updateFrameInventoryBool = true; // only set to true if parsing was successful
-                updateFrameInventory(localFrameInventoryId, updateFrameInvQuantity); // Consider changing the method to accept int if appropriate
+                updateFrameInventoryBool = true; 
+                updateFrameInventory(localFrameInventoryId, updateFrameInvQuantity); 
             }
-            else if (!string.IsNullOrEmpty(frameInventoryID.Text)) // only show the message if something was entered
+            else if (!string.IsNullOrEmpty(frameInventoryID.Text)) 
             {
                 MessageBox.Show("Invalid Frame Inventory ID");
             }
 
             if (int.TryParse(lensInventoryID.Text, out int localLensInventoryId))
             {
-                updateLensInventoryBool = true; // only set to true if parsing was successful
-                updateLensInventory(localLensInventoryId, updateLensInvQuantity); // Consider changing the method to accept int if appropriate
+                updateLensInventoryBool = true; 
+                updateLensInventory(localLensInventoryId, updateLensInvQuantity);
             }
-            else if (!string.IsNullOrEmpty(lensInventoryID.Text)) // only show the message if something was entered
+            else if (!string.IsNullOrEmpty(lensInventoryID.Text)) 
             {
                 MessageBox.Show("Invalid Lens Inventory ID");
             }
 
-            // Check if no valid IDs were provided for any of the updates
             if (!updateFrameBool && !updateLensBool && !updateFrameInventoryBool && !updateLensInventoryBool)
             {
                 MessageBox.Show("No valid IDs found for updating.");
             }
         }
-
-
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
