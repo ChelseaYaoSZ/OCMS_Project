@@ -3,7 +3,13 @@ using System.Data;
 
 namespace RestAPI_OCMS.Models
 {
-    public class DBApplication
+    public interface IDBApplication
+    {
+        Response GetAllInventory(NpgsqlConnection con);
+        Response GetInventoryById(NpgsqlConnection con, int id);
+    }
+
+    public class DBApplication : IDBApplication
     {
         public Response GetAllInventory(NpgsqlConnection con)
         {
