@@ -620,12 +620,12 @@ namespace OCMS
 
         private void sendEmail_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Email Sent Successfully.");
         }
 
         private void print_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Print successfully");
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)

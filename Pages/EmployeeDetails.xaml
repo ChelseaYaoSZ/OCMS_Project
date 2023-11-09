@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:OCMS"
         mc:Ignorable="d"
         Title="EmployeeDetails" Height="750" Width="800">
-    <Grid>
+    <Grid Background="#FFF6D5C6">
         <Grid.RowDefinitions>
             <RowDefinition Height="56*"/>
             <RowDefinition Height="346*"/>
@@ -25,31 +25,31 @@
             <Label Content="DOB" Canvas.Left="41" Canvas.Top="210" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Phone Number" Canvas.Left="41" Canvas.Top="260" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Email" Canvas.Left="42" Canvas.Top="304" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox x:Name="firstName" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="123" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox x:Name="lastName" Canvas.Left="211" TextWrapping="Wrap" Canvas.Top="167" Width="159" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox x:Name="phoneNum" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="264" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox x:Name="email" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="312" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="firstName" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="123" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="lastName" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="211" TextWrapping="Wrap" Canvas.Top="167" Width="159" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="phoneNum" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="264" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="email" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="312" Width="158" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <Label Content="Person ID" Canvas.Left="42" Canvas.Top="74"/>
-            <TextBox x:Name="p_ID" Canvas.Left="211" TextWrapping="Wrap" Canvas.Top="78" Width="159" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox x:Name="p_ID" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="211" TextWrapping="Wrap" Canvas.Top="78" Width="159" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <DatePicker x:Name="birthDate" Canvas.Left="211" Canvas.Top="216" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159"/>
         </Canvas>
-        <Label Grid.Column="1" Content="Employee Registration" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Height="58" Width="390"/>
-        <Button x:Name="add" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="49,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="add_Click" Height="35"/>
-        <Button x:Name="update" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="update_Click" Margin="307,0,0,0" Height="35"/>
-        <Button x:Name="cancel" Grid.Column="2" Content="Cancel" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="cancel_Click" Height="35" Margin="156,0,0,0"/>
+        <Label Grid.Column="1" Content="Employee Registration" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="325" FontWeight="Bold" FontSize="24" FontFamily="Broadway" Foreground="#FF854622" Grid.ColumnSpan="2" Margin="75,6,0,0" Grid.RowSpan="2"/>
+        <Button x:Name="add" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="49,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="add_Click" Height="35"/>
+        <Button x:Name="update" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Update" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="update_Click" Margin="307,0,0,0" Height="35"/>
+        <Button x:Name="cancel" Style="{StaticResource SearchButtonStyle}" Grid.Column="2" Content="Cancel" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="100px" Click="cancel_Click" Height="35" Margin="156,0,0,0"/>
         <Canvas Grid.Column="2" Margin="0,52,0,0" Grid.RowSpan="2">
             <Label Content="Employee ID" Canvas.Left="15" Canvas.Top="66" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="User Name" Canvas.Left="15" Canvas.Top="117" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="Password" Canvas.Left="15" Canvas.Top="165" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="User Type (adminstrator, sales, doctor)" Canvas.Left="15" Canvas.Top="207" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox x:Name="employeeID" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="66" Width="120" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBox x:Name="username" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="117" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBox x:Name="password" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="165" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="employeeID" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="66" Width="120" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="username" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="117" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="password" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="165" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="Active " Canvas.Left="15" Canvas.Top="296" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="Manager ID (1 or 2)" Canvas.Left="15" Canvas.Top="257" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Label Content="Employee Profile" Canvas.Left="10" Canvas.Top="10" FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox x:Name="userType" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="233" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox x:Name="managerID" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="265" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="userType" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="233" Width="120" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="managerID" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="182" TextWrapping="Wrap" Canvas.Top="265" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <CheckBox x:Name="activeTrue" Content="True" Canvas.Left="182" Canvas.Top="301"/>
             <CheckBox x:Name="activeFalse" Content="False" Canvas.Left="182" Canvas.Top="322"/>
         </Canvas>
@@ -60,10 +60,10 @@
             <Label Content="Address" Canvas.Left="84" Canvas.Top="110"/>
             <Label Content="City" Canvas.Left="84" Canvas.Top="159"/>
             <Label Content="Postal Code" Canvas.Left="83" Canvas.Top="206"/>
-            <TextBox x:Name="addressID" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="57" Width="348" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" IsEnabled="False"/>
-            <TextBox x:Name="address" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="107" Width="348" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
-            <TextBox x:Name="city" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="159" Width="348" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <TextBox x:Name="postalCode" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="207" Width="348" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="addressID" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="57" Width="348" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="12" IsEnabled="False"/>
+            <TextBox x:Name="address" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="107" Width="348" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+            <TextBox x:Name="city" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="159" Width="348" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBox x:Name="postalCode" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="212" TextWrapping="Wrap" Canvas.Top="207" Width="348" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Canvas>
     </Grid>
 </Window>
