@@ -45,17 +45,18 @@ namespace OCMS
         public DataTable GetAllOrders()
         {
             string query = @"SELECT o.order_id, o.order_date, o.order_status, o.order_quantity, o.total_amount,
-                                    p.first_name,p.last_name,
-                                    a.appoint_id, a.eye_exam_fee, 
-                                    i.inventory_id,l.lens_id,l.lens_treatment,
-									f.brand
+                                    p.first_name,p.last_name, p.person_id, o.staff_id,
+                                    a.appoint_id, a.eye_exam_fee, a.date, o.order_date,
+                                    i.inventory_id, l.lens_id, l.lens_treatment, f.frame_id,
+									f.brand, s.store_id
                             FROM optic.order o
                             left JOIN optic.customer c ON o.customer_id = c.customer_id
                             left JOIN optic.person p ON c.person_id = p.person_id
                             left JOIN optic.inventory i ON i.inventory_id = o.inventory_id
                             left JOIN optic.appointment a ON a.appoint_id = o.appoint_id
                             left JOIN optic.lens l ON i.lens_id = l.lens_id
-                            left JOIN optic.frame f ON f.frame_id = i.frame_id";
+                            left JOIN optic.frame f ON f.frame_id = i.frame_id
+                            left JOIN optic.store s ON i.store_id = s.store_id";
 
             NpgsqlDataAdapter dataAdapter = new NpgsqlDataAdapter(query, con);
 
@@ -75,17 +76,18 @@ namespace OCMS
         public DataTable SearchOrders(string searchTerm, DateTime? orderDate, int? personId)
         {
             string query = @"SELECT o.order_id, o.order_date, o.order_status, o.order_quantity, o.total_amount,
-                                    p.person_id,p.first_name,p.last_name,
-                                    a.appoint_id, a.eye_exam_fee, 
-                                    i.inventory_id,l.lens_id,l.lens_treatment,
-									f.brand
+                                    p.person_id,p.first_name,p.last_name, o.staff_id, o.order_date,
+                                    a.appoint_id, a.eye_exam_fee, a.date,
+                                    i.inventory_id,l.lens_id,l.lens_treatment, f.frame_id,
+									f.brand, s.store_id
                             FROM optic.order o
                             left JOIN optic.customer c ON o.customer_id = c.customer_id
                             left JOIN optic.person p ON c.person_id = p.person_id
                             left JOIN optic.inventory i ON i.inventory_id = o.inventory_id
                             left JOIN optic.appointment a ON a.appoint_id = o.appoint_id
                             left JOIN optic.lens l ON i.lens_id = l.lens_id
-                            left JOIN optic.frame f ON f.frame_id = i.frame_id";
+                            left JOIN optic.frame f ON f.frame_id = i.frame_id
+                            left JOIN optic.store s ON i.store_id = s.store_id";
 
             List<string> conditions = new List<string>();
 
