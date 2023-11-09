@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OrderDetails" Height="650" Width="800">
 
-    <Grid Margin="0,4,0,-4">
+    <Grid  Background="#FFF6D5C6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="56*"/>
             <ColumnDefinition Width="783*"/>
@@ -19,7 +19,7 @@
             <RowDefinition Height="38*"/>
             <RowDefinition Height="101*"/>
         </Grid.RowDefinitions>
-        <Label Content="Invoice Form" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Height="36" Width="176" Margin="0,10,0,0" Grid.Column="1" Grid.RowSpan="2"/>
+        <Label Content="Invoice Form" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="325" FontWeight="Bold" FontSize="24" FontFamily="Broadway" Foreground="#FF854622" Grid.ColumnSpan="2" Margin="75,6,0,0" Grid.RowSpan="2"/>
         <Label Grid.Column="1" Content="Invoice Details" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="34" Width="133"/>
         <Label Grid.Column="1" Content="Order ID" HorizontalAlignment="Left" Margin="60,53,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="70"/>
         <Label Grid.Column="1" Content="Date" HorizontalAlignment="Left" Margin="60,89,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="43"/>
@@ -28,29 +28,29 @@
         <Label Grid.Column="1" Content="Lens" HorizontalAlignment="Left" Margin="60,374,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="65"/>
         <Label Grid.Column="1" Content="Staff" HorizontalAlignment="Left" Margin="60,207,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="41"/>
         <Label Grid.Column="1" Content="Total Amount" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontSize="18" Height="34" Width="117"/>
-        <TextBox x:Name="orderID" Grid.Column="1" HorizontalAlignment="Left" Margin="317,53,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" IsEnabled="False"/>
-        <TextBox x:Name="orderStatus" Grid.Column="1" HorizontalAlignment="Left" Margin="317,125,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27"/>
+        <TextBox x:Name="orderID" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="317,53,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" IsEnabled="False"/>
+        <TextBox x:Name="orderStatus" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="317,125,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27"/>
         <ComboBox x:Name="store" Grid.Column="1" HorizontalAlignment="Left" Margin="317,161,0,0" Grid.Row="1" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" DisplayMemberPath="StoreName" SelectedValuePath="StoreId"/>
         <ComboBox x:Name="staff" Grid.Column="1" HorizontalAlignment="Left" Margin="317,202,0,0" Grid.Row="1" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" DisplayMemberPath="Name" SelectedValuePath="StaffId"/>
         <DatePicker x:Name="invoiceDate" Grid.Column="1" HorizontalAlignment="Left" Margin="317,89,0,0" Grid.Row="1" VerticalAlignment="Top" Width="282" FontSize="16" Height="29"/>
         <Label Grid.Column="1" Content="Eye Exam" HorizontalAlignment="Left" Margin="60,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="76"/>
         <CheckBox x:Name="yesExam" Grid.Column="1" Content="Yes" HorizontalAlignment="Left" Margin="260,245,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Checked="yesExam_Checked" Unchecked="yesExam_Unchecked" Height="20" Width="43"/>
-        <TextBox x:Name="appointID" Grid.Column="1" HorizontalAlignment="Left" Margin="317,239,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" Height="27" FontSize="16" IsEnabled="False"/>
-        <Button x:Name="verify" Grid.Column="1" Content="Verify" HorizontalAlignment="Left" Margin="515,242,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Width="84" Height="26" Click="verify_Click"/>
+        <TextBox x:Name="appointID" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="317,239,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="165" Height="27" FontSize="16" IsEnabled="False"/>
+        <Button x:Name="verify" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Verify" HorizontalAlignment="Left" Margin="517,240,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Width="84" Height="26" Click="verify_Click"/>
         <Label Grid.Column="1" Content="Name" HorizontalAlignment="Left" Margin="60,309,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="52"/>
         <Label Grid.Column="1" Content="Date of Appointment" HorizontalAlignment="Left" Margin="60,273,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="160"/>
         <DatePicker x:Name="verifyDate" Grid.Column="1" HorizontalAlignment="Left" Margin="317,273,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Width="282" Height="29" IsEnabled="False"/>
-        <TextBox x:Name="clientName" Grid.Column="1" HorizontalAlignment="Left" Margin="319,311,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" IsEnabled="False"/>
+        <TextBox x:Name="clientName" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="319,311,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" IsEnabled="False"/>
         <ComboBox x:Name="lens" Grid.Column="1" HorizontalAlignment="Left" Margin="317,376,0,0" Grid.Row="1" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" DisplayMemberPath="LensDescription" SelectedValuePath="LensId" SelectionChanged="Lens_SelectionChanged"/>
-        <TextBox x:Name="totalAmount" Grid.Column="1" HorizontalAlignment="Left" Margin="317,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="18" Height="27" IsEnabled="False"/>
-        <Button x:Name="sendEmail" Grid.Column="1" Content="Send to Email" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="136" Height="47" Click="sendEmail_Click"/>
-        <Button x:Name="print" Grid.Column="1" Content="Print " HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="136" Height="47" Click="print_Click" Margin="181,0,0,0"/>
-        <Button x:Name="submit" Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="136" Height="47" Click="submit_Click" Margin="350,0,0,0" />
-        <Button x:Name="cancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="136" Height="47" Click="cancel_Click" Margin="533,0,0,0" />
+        <TextBox x:Name="totalAmount" Style="{StaticResource RoundedTextBoxStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="317,10,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="18" Height="27" IsEnabled="False"/>
+        <Button x:Name="sendEmail" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Send to Email" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="154" Height="39" Click="sendEmail_Click" Margin="18,0,0,0"/>
+        <Button x:Name="print" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Print " HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="129" Height="39" Click="print_Click" Margin="210,0,0,0"/>
+        <Button x:Name="submit" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="128" Height="39" Click="submit_Click" Margin="371,0,0,0" />
+        <Button x:Name="cancel" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Width="129" Height="39" Click="cancel_Click" Margin="544,0,0,0" />
         <Label Grid.Column="1" Content="Frame" HorizontalAlignment="Left" Margin="60,342,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="65"/>
         <ComboBox x:Name="frame" Grid.Column="1" HorizontalAlignment="Left" Margin="317,346,0,0" Grid.Row="1" VerticalAlignment="Top" Width="282" FontSize="16" Height="27" DisplayMemberPath="FrameDescription" SelectedValuePath="FrameId" SelectionChanged="Frame_SelectionChanged"/>
         <Label Grid.Column="1" Content="Quantity" HorizontalAlignment="Left" Margin="60,408,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Height="31" Width="117"/>
-        <TextBox x:Name="quantity" Grid.Column="1" HorizontalAlignment="Left" Margin="317,408,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27"/>
-        <Button x:Name="clear" Grid.Column="1" Content="Clear" HorizontalAlignment="Left" Margin="608,346,0,0" Grid.Row="1" VerticalAlignment="Top" Height="62" Width="61" FontSize="18" Click="clear_Click" RenderTransformOrigin="0.41,1.299"/>
+        <TextBox x:Name="quantity" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="317,408,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="282" FontSize="16" Height="27"/>
+        <Button x:Name="clear" Style="{StaticResource SearchButtonStyle}" Grid.Column="1" Content="Clear" HorizontalAlignment="Left" Margin="625,346,0,0" Grid.Row="1" VerticalAlignment="Top" Height="62" Width="61" FontSize="18" Click="clear_Click" RenderTransformOrigin="0.41,1.299"/>
     </Grid>
 </Window>
