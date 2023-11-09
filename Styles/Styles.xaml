@@ -62,7 +62,7 @@
         <Setter Property="Background" Value="#f6efe7"/>
         <Setter Property="BorderBrush" Value="#FFD7977F"/>
         <Setter Property="BorderThickness" Value="3"/>
-        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontFamily" Value="Bookman Old Style"/>
         <Setter Property="Template">
             <Setter.Value>
