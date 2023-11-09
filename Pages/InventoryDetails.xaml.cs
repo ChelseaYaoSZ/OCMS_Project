@@ -155,6 +155,23 @@ namespace OCMS
                 updateLensTreatment = true;
             }
 
+            if (!string.IsNullOrWhiteSpace(lensPrice.Text))
+            {
+                updateLensPrice = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(lensQuantity.Text))
+            {
+                updateLensInvQuantity = true;
+            }
+
+            if (!string.IsNullOrWhiteSpace(frameQuantity.Text))
+            {
+                updateFrameInvQuantity = true;
+            }
+
+
+
         }
 
         public class StoreInfo
@@ -308,13 +325,32 @@ namespace OCMS
                 }
             }
 
-
-
-
-
         private void update_Click(object sender, RoutedEventArgs e)
         {
+            CheckForUpdates();
 
+            bool hasFrameId = !string.IsNullOrEmpty(frameID.Text);
+            bool hasLensId = !string.IsNullOrEmpty(lensID.Text);
+
+            /*if (hasFrameId)
+            {
+                // Assuming that these methods take the necessary parameters for the update operation.
+                // The updateFrame method should include all necessary parameters, which might be extracted from the UI.
+                updateFrame(generatedFrameId, updateBrand, updateModel, updateColour, updateSize, updateFramePrice, frameInventoryID.Text);
+            }
+
+            if (hasLensId)
+            {
+                // Similarly, updateLens should take the necessary parameters.
+                updateLens(generatedLensId, updateLensTreatment, updateLensType, updateLensPrice, lensInventoryID.Text);
+            }
+
+            if (!hasFrameId && !hasLensId)
+            {
+                MessageBox.Show("No valid IDs found for updating.");
+            }*/
+
+           
         }
 
         private void cancel_Click(object sender, RoutedEventArgs e)

@@ -24,7 +24,7 @@ namespace OCMS
     public partial class Invoice : Window
     {
         private readonly int? custID;
-        private int currentInventoryId = -1;
+        private static int currentInventoryId = -1;
 
         DateTime? selectedDate;
         private NpgsqlConnection con;
@@ -35,26 +35,7 @@ namespace OCMS
             InitializeComponent();
             DatabaseHelper dbHelper = new DatabaseHelper();
             con = dbHelper.GetConnection();
-
-            //Set the staff combobox
-            staff.DataContext = FetchStaff();
-            staff.DisplayMemberPath = "Name";
-            staff.SelectedValuePath = "StaffId";
-
-            // Set the stores combobox
-            store.DataContext = FetchStores();
-            store.DisplayMemberPath = "StoreName";
-            store.SelectedValuePath = "StoreId";
-
-            //Set the frame combobox
-            frame.DataContext = FetchFrames();
-            frame.DisplayMemberPath = "FrameDescription";
-            frame.SelectedValuePath = "FrameId";
-
-            //Set the lens combobox
-            lens.DataContext = FetchLens();
-            lens.DisplayMemberPath = "LensDescription";
-            lens.SelectedValuePath = "LensId";
+            InitializeComboBoxes();
         }
 
         public Invoice(int custID)
@@ -63,8 +44,20 @@ namespace OCMS
             DatabaseHelper dbHelper = new DatabaseHelper();
             con = dbHelper.GetConnection();
             this.custID = custID;
+            InitializeComboBoxes();
+        }
 
+        public Invoice(DataRow selectedRow)
+        {
+            InitializeComponent();
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            con = dbHelper.GetConnection();
+            FillInvoiceDetails(selectedRow);
+            InitializeComboBoxes();
+        }
 
+        private void InitializeComboBoxes()
+        {
             //Set the staff combobox
             staff.DataContext = FetchStaff();
             staff.DisplayMemberPath = "Name";
@@ -86,17 +79,41 @@ namespace OCMS
             lens.SelectedValuePath = "LensId";
         }
 
-        public Invoice(DataRow selectedRow)
-        {
-            InitializeComponent();
-            DatabaseHelper dbHelper = new DatabaseHelper();
-            con = dbHelper.GetConnection();
-            //FillInvoiceDetails(selectedRow);
-        }
-
         private void FillInvoiceDetails(DataRow row)
         {
-            //personID.Text = $"{row["person_id"]}";
+            orderID.Text = $"{row["order_id"]}";
+            orderStatus.Text = $"{row["order_status"]}";
+            appointID.Text = $"{row["appoint_id"]}";
+            verifyDate.Text = $"{row["date"]}";
+            clientName.Text = $"{row["first_name"]} {row["last_name"]}";
+            quantity.Text = $"{row["order_quantity"]}";
+            totalAmount.Text = $"{row["total_amount"]}";
+            invoiceDate.Text = $"{row["order_date"]}";
+        
+            if (row["store_id"] != DBNull.Value)
+            {
+                int storeId = Convert.ToInt32(row["store_id"]);
+                store.SelectedValue = storeId;
+            }
+
+            if (row["staff_id"] != DBNull.Value)
+            {
+                int staffId = Convert.ToInt32(row["staff_id"]);
+                staff.SelectedValue = staffId;
+            }
+
+            if (row["frame_id"] != DBNull.Value)
+            {
+                int frameId = Convert.ToInt32(row["frame_id"]);
+                frame.SelectedValue = frameId;
+            }
+
+            if (row["lens_id"] != DBNull.Value)
+            {
+                int lensId = Convert.ToInt32(row["lens_id"]);
+                lens.SelectedValue = lensId;
+            }
+
         }
 
         public class StaffInfo
@@ -137,6 +154,11 @@ namespace OCMS
                            GROUP BY p.first_name, p.last_name";
             try
             {
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
                 {
                     using (NpgsqlDataReader reader = cmd.ExecuteReader())
@@ -175,6 +197,11 @@ namespace OCMS
 
             try
             {
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
                 {
                     using (NpgsqlDataReader reader = cmd.ExecuteReader())
@@ -208,11 +235,16 @@ namespace OCMS
             List<FrameInfo> frames = new List<FrameInfo>();
 
             // SQL query to get the frame_id and frame description (a combination of brand, model, colour, size and price) from the frame table
-            string query = @"SELECT frame_id, brand || ' ' || model || ', Colour: ' || colour || ', Size: ' || size || ', Price: $' || price::text AS FrameDescription 
+            string query = @"SELECT frame_id, brand || ' ' || model || ', Colour: ' || colour || ', Size: ' || size || ', Price: $' || frame_price::text AS FrameDescription 
                      FROM optic.frame";
 
             try
             {
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
                 {
                     using (NpgsqlDataReader reader = cmd.ExecuteReader())
@@ -273,13 +305,19 @@ namespace OCMS
             List<LensInfo> lenses = new List<LensInfo>();
 
             // SQL query to get the lens_id and lens description (a combination of type, lens_treatment and price) from the lens table
-            string query = @"SELECT lens_id, type || ', Treatment: ' || COALESCE(lens_treatment, 'No Treatment')  || ', Price: $' || price AS LensDescription
+            string query = @"SELECT lens_id, type || ', Treatment: ' || COALESCE(lens_treatment, 'No Treatment')  || ', Price: $' || lens_price AS LensDescription
                              FROM optic.lens";
 
             try
             {
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, con))
                 {
+                    
                     using (NpgsqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -419,10 +457,10 @@ namespace OCMS
                 case "Frame":
                     query = "SELECT inventory_id FROM optic.inventory WHERE frame_id = @itemId AND store_id = @storeID";
                     break;
+                default:
                 case "Lens":
                     query = "SELECT inventory_id FROM optic.inventory WHERE lens_id = @itemId AND store_id = @storeID";
                     break;
-                default:
                     throw new ArgumentException("Invalid item type specified.");
             }
 
@@ -531,11 +569,13 @@ namespace OCMS
                             cmd.Parameters.AddWithValue("@quantity", quantityValue);
                             cmd.Parameters.AddWithValue("@storeId", storeValue);
                             cmd.Parameters.AddWithValue("@staffId", staffValue);
+                            //MessageBox.Show(currentInventoryId.ToString());
                             cmd.Parameters.AddWithValue("@inventoryId", currentInventoryId);
                             cmd.Parameters.AddWithValue("@appointId", DBNull.Value);
                             cmd.Parameters.AddWithValue("@customerId", custID ?? (object)DBNull.Value);
 
                             orderId = (int)cmd.ExecuteScalar();
+                            MessageBox.Show(orderId.ToString());
                        
                         // Now retrieve the total amount
                         decimal totalAmountValueDecimal = 0;
