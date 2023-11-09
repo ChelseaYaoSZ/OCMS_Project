@@ -33,7 +33,7 @@ namespace OCMS
 
         private int generatedFrameId;
         private int generatedLensId;
-        private int generatedInventoryID;
+        private int generatedInventoryId;
 
         public InventoryDetails()
         {
@@ -169,9 +169,6 @@ namespace OCMS
             {
                 updateFrameInvQuantity = true;
             }
-
-
-
         }
 
         public class StoreInfo
@@ -219,7 +216,7 @@ namespace OCMS
                 {
                     try
                     {
-                        int? generatedFrameId = null;
+                       int? generatedFrameId = null;
                         int? generatedLensId = null;
                         int? generatedInventoryId = null;
 
@@ -325,33 +322,301 @@ namespace OCMS
                 }
             }
 
+        private void updateFrame(int generatedFrameId, bool updateBrand, bool updateModel, bool updateColour, bool updateSize, bool updateFramePrice)
+        {
+            int frameid = generatedFrameId;
+            MessageBox.Show(frameid.ToString());
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    string frameQuery = "UPDATE optic.frame SET ";
+
+                    if (updateBrand)
+                    {
+                        frameQuery += "brand = @brand, ";
+                    }
+
+                    if (updateModel)
+                    {
+                        frameQuery += "model = @model, ";
+                    }
+
+                    if (updateColour)
+                    {
+                        frameQuery += "colour = @colour, ";
+                    }
+
+                    if (updateSize)
+                    {
+                        frameQuery += "size = @size, ";
+                    }
+
+                    if (updateFramePrice)
+                    {
+                        frameQuery += "frame_price = @price, ";
+                    }
+
+                    frameQuery = frameQuery.TrimEnd(',', ' ');
+                    frameQuery += " WHERE frame_id = @frame_id";
+
+                    NpgsqlCommand cmd = new NpgsqlCommand(frameQuery, con);
+                    cmd.Transaction = transaction;
+
+                    if (updateBrand)
+                    {
+                        cmd.Parameters.AddWithValue("@brand", brand.Text);
+                    }
+
+                    if (updateModel)
+                    {
+                        cmd.Parameters.AddWithValue("@model", model.Text);
+                    }
+
+                    if (updateColour)
+                    {
+                        cmd.Parameters.AddWithValue("@colour", colour.Text);
+                    }
+
+                    if (updateSize)
+                    {
+                        cmd.Parameters.AddWithValue("@size", size.Text);
+                    }
+
+                    if (updateFramePrice)
+                    {
+                        cmd.Parameters.AddWithValue("@price", decimal.Parse(framePrice.Text));
+                    }
+
+                    cmd.Parameters.AddWithValue("@frame_id", generatedFrameId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} rows were updated.");
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Frame information has been updated successfully.");
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating frame information: {ex.Message}");
+                }
+            }
+        }
+
+        private void updateLens(int generatedLensId, bool updateLensType, bool updateLensTreatment, bool updateLensPrice)
+        {
+            int lensid = generatedLensId;
+            MessageBox.Show(lensid.ToString());
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    string lensQuery = "UPDATE optic.lens SET ";
+
+                    if (updateLensType)
+                    {
+                        lensQuery += "type = @type, ";
+                    }
+
+                    if (updateLensTreatment)
+                    {
+                        lensQuery += "lens_treatment = @treatment, ";
+                    }
+
+                    if (updateLensPrice)
+                    {
+                        lensQuery += "lens_price = @price, ";
+                    }
+
+                    // Remove the trailing comma and space only if we added something to update
+                    if (updateLensType || updateLensTreatment || updateLensPrice)
+                    {
+                        lensQuery = lensQuery.TrimEnd(',', ' ');
+                    }
+
+                    // Now we can safely append the WHERE clause
+                    lensQuery += " WHERE lens_id = @lens_id";
+
+                    NpgsqlCommand cmd = new NpgsqlCommand(lensQuery, con);
+                    cmd.Transaction = transaction;
+
+                    if (updateLensType)
+                    {
+                        cmd.Parameters.AddWithValue("@type", type.Text);
+                    }
+
+                    if (updateLensTreatment)
+                    {
+                        cmd.Parameters.AddWithValue("@treatment", treatment.Text);
+                    }
+
+                    if (updateLensPrice)
+                    {
+                        cmd.Parameters.AddWithValue("@price", decimal.Parse(lensPrice.Text));
+                    }
+
+                    cmd.Parameters.AddWithValue("@lens_id", generatedLensId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} rows were updated.");
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Lens information has been updated successfully.");
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating lens information: {ex.Message}");
+                }
+            }
+        }
+
+
+        private void updateFrameInventory(int frameInventoryId, bool updateFrameInvQuantity)
+        {
+            int frameinv = frameInventoryId;
+            MessageBox.Show(frameInventoryId.ToString());
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    string inventoryQuery = "UPDATE optic.inventory SET ";
+
+                    if (updateFrameInvQuantity)
+                    {
+                        inventoryQuery += "quantity = @quantity ";
+                    }
+
+                    inventoryQuery += "WHERE inventory_id = @inventory_id";
+
+                    NpgsqlCommand cmd = new NpgsqlCommand(inventoryQuery, con);
+                    cmd.Transaction = transaction;
+
+                    if (updateFrameInvQuantity)
+                    {
+                        cmd.Parameters.AddWithValue("@quantity", int.Parse(frameQuantity.Text));
+                    }
+
+                    cmd.Parameters.AddWithValue("@inventory_id", frameInventoryId);
+
+                    cmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Inventory has been updated successfully.");
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating inventory: {ex.Message}");
+                }
+            }
+        }
+
+        private void updateLensInventory(int lensInventoryId, bool updateLensInvQuantity)
+        {
+            int lensinv = lensInventoryId;
+            MessageBox.Show(lensInventoryId.ToString());
+            using (NpgsqlTransaction transaction = con.BeginTransaction())
+            {
+                try
+                {
+                    string inventoryQuery = "UPDATE optic.inventory SET ";
+
+                    if (updateLensInvQuantity)
+                    {
+                        inventoryQuery += "quantity = @quantity ";
+                    }
+
+                    inventoryQuery += "WHERE inventory_id = @inventory_id";
+
+                    NpgsqlCommand cmd = new NpgsqlCommand(inventoryQuery, con);
+                    cmd.Transaction = transaction;
+
+                    if (updateLensInvQuantity)
+                    {
+                        cmd.Parameters.AddWithValue("@quantity", int.Parse(lensQuantity.Text));
+                    }
+
+                    cmd.Parameters.AddWithValue("@inventory_id", lensInventoryId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"{rowsAffected} rows were updated.");
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Inventory has been updated successfully.");
+                }
+                catch (NpgsqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating inventory: {ex.Message}");
+                }
+            }
+        }
+
         private void update_Click(object sender, RoutedEventArgs e)
         {
             CheckForUpdates();
 
-            bool hasFrameId = !string.IsNullOrEmpty(frameID.Text);
-            bool hasLensId = !string.IsNullOrEmpty(lensID.Text);
+            bool updateFrameBool = false;
+            bool updateLensBool = false;
+            bool updateFrameInventoryBool = false;
+            bool updateLensInventoryBool = false;
 
-            /*if (hasFrameId)
+            // Parse IDs from the TextBoxes for frame and lens
+            if (int.TryParse(frameID.Text, out int localFrameId))
             {
-                // Assuming that these methods take the necessary parameters for the update operation.
-                // The updateFrame method should include all necessary parameters, which might be extracted from the UI.
-                updateFrame(generatedFrameId, updateBrand, updateModel, updateColour, updateSize, updateFramePrice, frameInventoryID.Text);
+                updateFrameBool = true; // only set to true if parsing was successful
+                updateFrame(localFrameId, updateBrand, updateModel, updateColour, updateSize, updateFramePrice);
+            }
+            else if (!string.IsNullOrEmpty(frameID.Text)) // only show the message if something was entered
+            {
+                MessageBox.Show("Invalid Frame ID");
             }
 
-            if (hasLensId)
+            if (int.TryParse(lensID.Text, out int localLensId))
             {
-                // Similarly, updateLens should take the necessary parameters.
-                updateLens(generatedLensId, updateLensTreatment, updateLensType, updateLensPrice, lensInventoryID.Text);
+                updateLensBool = true; // only set to true if parsing was successful
+                updateLens(localLensId, updateLensTreatment, updateLensType, updateLensPrice);
+            }
+            else if (!string.IsNullOrEmpty(lensID.Text)) // only show the message if something was entered
+            {
+                MessageBox.Show("Invalid Lens ID");
             }
 
-            if (!hasFrameId && !hasLensId)
+            // Parse IDs from the TextBoxes for inventory
+            if (int.TryParse(frameInventoryID.Text, out int localFrameInventoryId))
+            {
+                updateFrameInventoryBool = true; // only set to true if parsing was successful
+                updateFrameInventory(localFrameInventoryId, updateFrameInvQuantity); // Consider changing the method to accept int if appropriate
+            }
+            else if (!string.IsNullOrEmpty(frameInventoryID.Text)) // only show the message if something was entered
+            {
+                MessageBox.Show("Invalid Frame Inventory ID");
+            }
+
+            if (int.TryParse(lensInventoryID.Text, out int localLensInventoryId))
+            {
+                updateLensInventoryBool = true; // only set to true if parsing was successful
+                updateLensInventory(localLensInventoryId, updateLensInvQuantity); // Consider changing the method to accept int if appropriate
+            }
+            else if (!string.IsNullOrEmpty(lensInventoryID.Text)) // only show the message if something was entered
+            {
+                MessageBox.Show("Invalid Lens Inventory ID");
+            }
+
+            // Check if no valid IDs were provided for any of the updates
+            if (!updateFrameBool && !updateLensBool && !updateFrameInventoryBool && !updateLensInventoryBool)
             {
                 MessageBox.Show("No valid IDs found for updating.");
-            }*/
-
-           
+            }
         }
+
+
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
