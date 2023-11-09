@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:OCMS"
         mc:Ignorable="d"
         Title="InventoryDetails" Height="550" Width="800">
-    <Grid>
+
+    <Grid Background="#FFF6D5C6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"/>
             <ColumnDefinition Width="365*"/>
@@ -19,7 +20,7 @@
             <RowDefinition Height="347*"/>
             <RowDefinition Height="75*"/>
         </Grid.RowDefinitions>
-        <Label Content="Inventory Product Details" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="2" Margin="228,0,0,0" Height="36" Width="264" Grid.Column="1"/>
+        <Label Content="Inventory Product Details" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="325" FontWeight="Bold" FontSize="24" FontFamily="Broadway" Foreground="#FF854622" Grid.ColumnSpan="2" Margin="75,6,0,0" Grid.RowSpan="2"/>
         <Label Content="Frame Details" HorizontalAlignment="Left" Margin="12,7,0,0" Grid.Row="2" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="87" Grid.Column="1"/>
         <Label Grid.Column="2" Content="Lens Details" HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="2" VerticalAlignment="Top" FontWeight="Bold" Height="26" Width="77"/>
         <Label Grid.Column="1" Content="Frame ID" HorizontalAlignment="Left" Margin="22,56,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="58"/>
@@ -31,29 +32,29 @@
         <Label Grid.Column="2" Content="Lens Treatment" HorizontalAlignment="Left" Margin="24,87,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="90"/>
         <Label Grid.Column="2" Content="Type" HorizontalAlignment="Left" Margin="24,118,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="35"/>
         <Label Grid.Column="2" Content="Price" HorizontalAlignment="Left" Margin="24,149,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="36"/>
-        <TextBox x:Name="frameID" Grid.Column="1" HorizontalAlignment="Left" Margin="136,56,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
-        <TextBox x:Name="brand" Grid.Column="1" HorizontalAlignment="Left" Margin="136,87,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <TextBox x:Name="model" Grid.Column="1" HorizontalAlignment="Left" Margin="136,118,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <TextBox x:Name="colour" Grid.Column="1" HorizontalAlignment="Left" Margin="136,149,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <TextBox x:Name="framePrice" Grid.Column="1" HorizontalAlignment="Left" Margin="136,215,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <TextBox x:Name="lensID" Grid.Column="2" HorizontalAlignment="Left" Margin="132,60,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
-        <TextBox x:Name="treatment" Grid.Column="2" HorizontalAlignment="Left" Margin="132,91,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <TextBox x:Name="type" Grid.Column="2" HorizontalAlignment="Left" Margin="132,118,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <TextBox x:Name="lensPrice" Grid.Column="2" HorizontalAlignment="Left" Margin="132,151,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <Button x:Name="add" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Height="55" Width="110" Click="add_Click"/>
-        <Button x:Name="update" Grid.Column="2" Content="Update" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" Height="55" Width="109" FontSize="20" Click="update_Click" Margin="211,0,0,0"/>
+        <TextBox x:Name="frameID" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="136,56,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
+        <TextBox x:Name="brand" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="136,87,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="model" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="136,118,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="colour" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="136,149,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="framePrice" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="136,215,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="lensID" Grid.Column="2" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="132,60,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
+        <TextBox x:Name="treatment" Grid.Column="2" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="132,91,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="type" Grid.Column="2" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="132,118,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="lensPrice" Grid.Column="2" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="132,151,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <Button x:Name="add" Grid.Column="1" Content="Add" Style="{StaticResource SearchButtonStyle}" HorizontalAlignment="Left" Margin="90,334,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Height="41" Width="103" Click="add_Click" Grid.RowSpan="2"/>
+        <Button x:Name="update" Grid.Column="2" Content="Update" Style="{StaticResource SearchButtonStyle}" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Height="41" Width="102" FontSize="20" Click="update_Click" Margin="210,334,0,0" Grid.RowSpan="2"/>
         <Label Grid.Column="1" Content="Size" HorizontalAlignment="Left" Margin="22,181,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="36"/>
-        <TextBox x:Name="size" Grid.Column="1" HorizontalAlignment="Left" Margin="136,181,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="size" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="136,181,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
         <Label Grid.Column="1" Content="Quantity" HorizontalAlignment="Left" Margin="22,249,0,24" Grid.Row="2" Width="77" Grid.RowSpan="2"/>
-        <TextBox x:Name="frameQuantity" Grid.Column="1" HorizontalAlignment="Left" Margin="136,249,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <TextBox x:Name="frameQuantity" Grid.Column="1" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="136,249,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
         <Label Grid.Column="2" Content="Quantity" HorizontalAlignment="Left" Margin="24,185,0,61" Grid.Row="2" Width="77" Grid.RowSpan="2"/>
-        <TextBox x:Name="lensQuantity" Grid.Column="2" HorizontalAlignment="Left" Margin="132,185,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
-        <Button x:Name="cancel" Grid.Column="1" Content="Cancel" HorizontalAlignment="Left" Margin="221,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Height="55" Width="110" Click="cancel_Click" />
-        <Button x:Name="delete" Grid.Column="2" Content="Delete" HorizontalAlignment="Left" Margin="42,0,0,0" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Height="55" Width="110" Click="delete_Click" />
+        <TextBox x:Name="lensQuantity" Grid.Column="2" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="132,185,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22"/>
+        <Button x:Name="cancel" Grid.Column="1" Content="Cancel" Style="{StaticResource SearchButtonStyle}" HorizontalAlignment="Left" Margin="241,334,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Height="41" Width="104" Click="cancel_Click" Grid.RowSpan="2" />
+        <Button x:Name="delete" Grid.Column="2" Content="Delete" Style="{StaticResource SearchButtonStyle}" HorizontalAlignment="Left" Margin="51,334,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="20" Height="41" Width="103" Click="delete_Click" Grid.RowSpan="2" />
         <Label Grid.Column="1" Content="Inventory ID" HorizontalAlignment="Left" Margin="22,29,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="77"/>
-        <TextBox x:Name="frameInventoryID" Grid.Column="1" HorizontalAlignment="Left" Margin="136,29,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
+        <TextBox x:Name="frameInventoryID" Style="{StaticResource RoundedTextBoxStyle}" Grid.Column="1" HorizontalAlignment="Left" Margin="136,29,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
         <Label Grid.Column="2" Content="Inventory ID" HorizontalAlignment="Left" Margin="24,31,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="77"/>
-        <TextBox x:Name="lensInventoryID" Grid.Column="2" HorizontalAlignment="Left" Margin="132,31,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
+        <TextBox x:Name="lensInventoryID" Grid.Column="2" Style="{StaticResource RoundedTextBoxStyle}" HorizontalAlignment="Left" Margin="132,31,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" Height="22" IsEnabled="False"/>
         <Label Grid.Column="1" Content="Store" HorizontalAlignment="Left" Margin="174,4,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <ComboBox x:Name="store" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="228,57,0,0" VerticalAlignment="Top" Width="318" FontSize="16" Height="39" DisplayMemberPath="StoreName" SelectedValuePath="StoreId" Grid.RowSpan="2"/>
     </Grid>

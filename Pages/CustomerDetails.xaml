@@ -33,7 +33,7 @@
             <TextBox x:Name="phoneNum"  Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="206" TextWrapping="Wrap" Canvas.Top="214" Width="158" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
             <TextBox x:Name="email"  Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="206" TextWrapping="Wrap" Canvas.Top="258" Width="158" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
             <Label Content="Person ID" Canvas.Left="37" Canvas.Top="52"/>
-            <TextBox x:Name="personID"  Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="207" TextWrapping="Wrap" Canvas.Top="52" Width="159" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
+            <TextBox x:Name="personID" Style="{StaticResource RoundedTextBoxStyle}" Canvas.Left="207" TextWrapping="Wrap" Canvas.Top="52" Width="159" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26"/>
             <DatePicker x:Name="birthDate" Canvas.Left="206" Canvas.Top="172" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159"/>
             <Label Content="Personal Information" Canvas.Left="38" Canvas.Top="10" FontSize="20" FontWeight="Bold"/>
         </Canvas>
