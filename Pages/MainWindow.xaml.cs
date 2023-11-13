@@ -38,13 +38,8 @@ namespace OCMS
             string userPW = password.Password;
             string selectedUserType = ((ComboBoxItem)userType.SelectedItem)?.Content.ToString();
 
-            // Implement authentication logic here using the entered username, password, and user type.
-            // You can query your database to check if the user exists and their credentials match the selected user type.
-
             if (authLogin.AuthenticateUser(username, userPW, selectedUserType))
             {
-                // Authentication successful
-                // You can navigate to the next page or perform other actions.
                 MessageBox.Show("Login successful!");
 
                 // Create an instance of the Dashboard

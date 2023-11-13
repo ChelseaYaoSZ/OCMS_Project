@@ -45,7 +45,7 @@ namespace OCMS
         public DataTable GetAllOrders()
         {
             string query = @"SELECT o.order_id, o.order_date, o.order_status, o.order_quantity, o.total_amount,
-                                    p.first_name,p.last_name, p.person_id, o.staff_id,
+                                    p.first_name,p.last_name, p.person_id, o.staff_id, c.customer_id,
                                     a.appoint_id, a.eye_exam_fee, a.date, o.order_date,
                                     i.inventory_id, l.lens_id, l.lens_treatment, f.frame_id,
 									f.brand, s.store_id
@@ -73,11 +73,11 @@ namespace OCMS
             dataGridOrders.ItemsSource = orders.DefaultView;
         }
 
-        public DataTable SearchOrders(string searchTerm, DateTime? orderDate, int? personId)
+        public DataTable SearchOrders(string searchTerm, DateTime? orderDate, int? customerId)
         {
             string query = @"SELECT o.order_id, o.order_date, o.order_status, o.order_quantity, o.total_amount,
                                     p.person_id,p.first_name,p.last_name, o.staff_id, o.order_date,
-                                    a.appoint_id, a.eye_exam_fee, a.date,
+                                    a.appoint_id, a.eye_exam_fee, a.date, c.customer_id,
                                     i.inventory_id,l.lens_id,l.lens_treatment, f.frame_id,
 									f.brand, s.store_id
                             FROM optic.order o
@@ -106,9 +106,9 @@ namespace OCMS
             }
 
             // Check if a person ID was provided and add it to the conditions
-            if (personId.HasValue)
+            if (customerId.HasValue)
             {
-                conditions.Add("p.person_id = @PersonID");
+                conditions.Add("c.customer_id = @CustID");
             }
 
             // Combine the conditions with OR or AND depending on your logic
@@ -128,9 +128,9 @@ namespace OCMS
             {
                 dataAdapter.SelectCommand.Parameters.AddWithValue("@OrderDate", orderDate.Value);
             }
-            if (personId.HasValue)
+            if (customerId.HasValue)
             {
-                dataAdapter.SelectCommand.Parameters.AddWithValue("@PersonID", personId.Value);
+                dataAdapter.SelectCommand.Parameters.AddWithValue("@CustID", customerId.Value);
             }
 
             DataTable dataTable = new DataTable();
@@ -142,11 +142,11 @@ namespace OCMS
         {
             string searchTerm = "";
             DateTime? selectedDate = null;
-            int? personId = null;
+            int? custId = null;
 
             if (!string.IsNullOrEmpty(_customerId))
             {
-                personId = int.Parse(_customerId);
+                custId = int.Parse(_customerId);
 
             }
             else
@@ -155,7 +155,7 @@ namespace OCMS
                 selectedDate = date.SelectedDate;
             }
 
-            DataTable orders = SearchOrders(searchTerm, selectedDate, personId);
+            DataTable orders = SearchOrders(searchTerm, selectedDate, custId);
             dataGridOrders.ItemsSource = orders.DefaultView;
         }
 
